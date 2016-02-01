@@ -54,8 +54,12 @@ namespace Rectify
         }
 
         private void cmbMentorList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {              
-                     
+        {
+            int Index = cmbMentorList.SelectedIndex + 1;
+            IList<Student> student = (from x in RegisterContext.Students
+                                      where x.MentorID == Index
+                                      select x).ToList();
+            studentsList.DataContext = student;                     
         }
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
