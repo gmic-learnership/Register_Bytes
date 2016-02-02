@@ -36,3 +36,8 @@ C:\Users\Wmaluleke\Desktop\DigitalRegister\Rectify\Rectify\obj\Debug\MainWindow.
 C:\Users\Wmaluleke\Desktop\DigitalRegister\Rectify\Rectify\obj\Debug\Rectify.g.resources
 C:\Users\Wmaluleke\Desktop\DigitalRegister\Rectify\Rectify\obj\Debug\Rectify.Properties.Resources.resources
 C:\Users\Wmaluleke\Desktop\DigitalRegister\Rectify\Rectify\obj\Debug\Rectify.csproj.GenerateResource.Cache
+C:\Users\Wmaluleke\Desktop\DigitalRegister\Rectify\Rectify\obj\Debug\Home.g.cs
+C:\Users\Wmaluleke\Desktop\DigitalRegister\Rectify\Rectify\obj\Debug\Home.baml
+C:\Users\Wmaluleke\Desktop\DigitalRegister\Rectify\Rectify\obj\Debug\App.baml
+C:\Users\Wmaluleke\Desktop\DigitalRegister\Rectify\Rectify\obj\Debug\EditStudent.g.cs
+C:\Users\Wmaluleke\Desktop\DigitalRegister\Rectify\Rectify\obj\Debug\EditStudent.baml

@@ -36,7 +36,6 @@ namespace Rectify
                 {
                     IList<AttendanceMaster> _mentor = (from x in db.AttendanceMasters
                                                        select x).ToList();
-
                     return _mentor;
                 }
             }
@@ -44,46 +43,61 @@ namespace Rectify
             {
                 return null;
             }
-
-        }      
+        }         
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
-            RegisterContext = new RegisterDBEntities();           
-            cmbMentorList.DataContext = this.GetCustomers();
+            RegisterContext = new RegisterDBEntities();
+            cmbMentorList.SelectedIndex = 1;
+            cmbMentorList.DataContext = this.GetCustomers();                 
+            //datePicker.SelectedDate = DateTime.Now;
         }
-
         private void cmbMentorList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            int Index = cmbMentorList.SelectedIndex + 1;
-            IList<Student> student = (from x in RegisterContext.Students
-                                      where x.MentorID == Index
-                                      select x).ToList();
-            studentsList.DataContext = student;                     
+            try
+            {
+                int Index = cmbMentorList.SelectedIndex + 1;
+                IList<Student> student = (from x in RegisterContext.Students
+                                          where x.MentorID == Index
+                                          select x).ToList();
+                studentsList.DataContext = student;
+          
+            }
+
+            catch (Exception z )
+            {
+                MessageBox.Show(z.Message);
+               
+            }                       
         }
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
             DateTime picker = new DateTime();
             picker =(DateTime)datePicker.SelectedDate;
-            AttendanceDetail userDetails = new AttendanceDetail();         
+            AttendanceDetail userDetails = new AttendanceDetail();        
             IList<Student> student = (from x in RegisterContext.Students
-                                               where userDetails.AttendanceDate == picker                                                                                         
-                                               select x).ToList();
-            studentsList.DataContext = student;
+                                                where userDetails.AttendanceDate == picker                                                                                         
+                                                select x).ToList();
+            studentsList.ItemsSource = student;
         }
         private void studentsList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {          
+        {
+            EditStudent edit = new EditStudent();
+            edit.ShowDialog();    
         }
         private void studentsList_Loaded(object sender, RoutedEventArgs e)
-        {        
+        {          
         }
         private void studentsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {           
-            int studentId = (int)studentsList.SelectedIndex;
-            IList<AttendanceDetail> detais = (from d in RegisterContext.AttendanceDetails
-                                              where d.ID == studentId
+        {
+            int studID = studentsList.SelectedIndex + 1;
+            IList<AttendanceDetail> details = (from d in RegisterContext.AttendanceDetails
+                                             
                                               select d).ToList();
-            attendanceDetails.DataContext = detais;
+            attendanceDetails.DataContext = details;
+        }
+        private void attendanceDetails_Loaded(object sender, RoutedEventArgs e)
+        {
+           
         }
     }
 }

@@ -2,8 +2,13 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Rectify"
-             StartupUri="MainWindow.xaml">
+             StartupUri="Home.xaml">
     <Application.Resources>
-         
+        <DataTemplate x:Key="LogoTemplate">
+            <Grid HorizontalAlignment="Right" Margin="0,0,20,4" >
+                <!--<Image Source="ms-appx:///Media/Dvtlogo.png.png"   />-->
+                <Image Source="Media/Dvtlogo.png"   />
+            </Grid>
+        </DataTemplate>
     </Application.Resources>
 </Application>
