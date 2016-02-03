@@ -39,5 +39,5 @@ C:\Users\Wmaluleke\Desktop\DigitalRegister\Rectify\Rectify\obj\Debug\Rectify.csp
 C:\Users\Wmaluleke\Desktop\DigitalRegister\Rectify\Rectify\obj\Debug\Home.g.cs
 C:\Users\Wmaluleke\Desktop\DigitalRegister\Rectify\Rectify\obj\Debug\Home.baml
 C:\Users\Wmaluleke\Desktop\DigitalRegister\Rectify\Rectify\obj\Debug\App.baml
-C:\Users\Wmaluleke\Desktop\DigitalRegister\Rectify\Rectify\obj\Debug\EditStudent.g.cs
-C:\Users\Wmaluleke\Desktop\DigitalRegister\Rectify\Rectify\obj\Debug\EditStudent.baml
+C:\Users\Wmaluleke\Desktop\DigitalRegister\Rectify\Rectify\obj\Debug\StudentForm.g.cs
+C:\Users\Wmaluleke\Desktop\DigitalRegister\Rectify\Rectify\obj\Debug\StudentForm.baml

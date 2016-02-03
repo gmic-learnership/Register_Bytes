@@ -27,11 +27,9 @@ namespace Rectify
         private void btnRegister_Click(object sender, RoutedEventArgs e)
         {
             Home home = new Home();
-            MainWindow StudentListMenu = new MainWindow();
             home.Close();
-            StudentListMenu.ShowDialog();
-
-           
+            MainWindow StudentListMenu = new MainWindow();
+            StudentListMenu.Show();        
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
