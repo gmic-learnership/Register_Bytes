@@ -36,24 +36,28 @@ namespace Rectify
                 MessageBox.Show("The student must have a last name", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
-            // DateTime result;
-            //else if (!DateTime.TryParse(this.dateOfBirth.Text, out result))
-            // {
-            //     MessageBox.Show("The date of birth must be a valid date", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            //     return;
-            // }
-            // Verify that the student is at least 5 years old
-            //TimeSpan age = DateTime.Now.Subtract(result);
-            //if (age.Days / 365.25 < 5)
+
+            else if (String.IsNullOrEmpty(this.txtEmail.Text))
+            {
+                MessageBox.Show("The student must have an Email", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
             else if (String.IsNullOrEmpty(this.txtHome_Address.Text))
             {
                 MessageBox.Show("The student must have Address", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 return;
             }
+            else if (String.IsNullOrEmpty(this.txtNumber.Text))
+            {
+                MessageBox.Show("The student must have Contact number", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            else
 
-
-            this.DialogResult = true;
-            btnOhk.IsEnabled = true;
+            {
+                this.DialogResult = true;
+                btnOhk.IsEnabled = true;
+            }
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {                

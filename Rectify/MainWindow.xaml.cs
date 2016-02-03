@@ -115,7 +115,7 @@ namespace Rectify
                     student.DateOfBirth = (DateTime)sf.dtPicker.SelectedDate;
                     student.MentorID = Convert.ToInt32(sf.cmbStudentMentor.SelectedValue.ToString());
                     student.Phone = sf.txtNumber.Text;
-                    // this.teacher.Students.Add(newStudent);                    
+                                    
                     db.Students.Add(student);
                 }
             }
@@ -129,7 +129,7 @@ namespace Rectify
             sf.txtEmail.Text = student.Email;
             sf.txtNumber.Text = student.Phone;
             sf.txtHome_Address.Text = student.Home_Address;
-            sf.dtPicker.SelectedDate = student.DateOfBirth; // Format the date to omit the time element
+            sf.dtPicker.SelectedDate = student.DateOfBirth;
             if (sf.ShowDialog().Value)
             {
                 student.FirstName = sf.txtFirstName.Text;
