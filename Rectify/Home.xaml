@@ -17,7 +17,7 @@
             </StackPanel>
 
         </DataTemplate>
-        <Style x:Key="myButton" TargetType="Button">
+        <Style x:Key="myButton" TargetType="Button" BasedOn="{StaticResource myButton}">
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="Foreground" Value="Blue"/>
         </Style>

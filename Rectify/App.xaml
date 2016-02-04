@@ -6,9 +6,20 @@
     <Application.Resources>
         <DataTemplate x:Key="LogoTemplate">
             <Grid HorizontalAlignment="Right" Margin="0,0,20,4" >
-                <!--<Image Source="ms-appx:///Media/Dvtlogo.png.png"   />-->
                 <Image Source="Media/Dvtlogo.png"   />
             </Grid>
         </DataTemplate>
+        <DataTemplate x:Key="ClassTemplate">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Path=Firstname}"/>
+                <TextBlock Text=""/>
+                <TextBlock Text="{Binding Path=LastName}"/>
+                <TextBlock Text=": ---"/>
+                <TextBlock Text="{Binding Path=JobTitle}"/>
+            </StackPanel>
+        </DataTemplate>
+        <Style x:Key="myButton" TargetType="Button">
+            <Setter Property="Background" Value="#FFFFED00"/>
+        </Style>
     </Application.Resources>
 </Application>

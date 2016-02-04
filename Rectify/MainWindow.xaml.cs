@@ -29,15 +29,15 @@ namespace Rectify
         {
             InitializeComponent();
         }
+
         private RegisterDBEntities RegisterContext = null;              
-        private IList<AttendanceMaster> GetCustomers()
+        public IList<AttendanceMaster> GetMentors()
         {
             try
             {
                 using (RegisterDBEntities db = new RegisterDBEntities())
                 {
-                    IList<AttendanceMaster> _mentor = (from x in db.AttendanceMasters
-                                                       select x).ToList();
+                    IList<AttendanceMaster> _mentor = (from x in db.AttendanceMasters select x).ToList();
                     return _mentor;
                 }
             }
@@ -46,26 +46,30 @@ namespace Rectify
                 return null;
             }
         }         
-        private void Window_Loaded(object sender, RoutedEventArgs e)
+        public void Window_Loaded(object sender, RoutedEventArgs e)
         {
             RegisterContext = new RegisterDBEntities();
-            cmbMentorList.SelectedIndex = 1;
-            cmbMentorList.DataContext = this.GetCustomers();                 
+            cmbMentorList.DataContext = this.GetMentors();
+            this.UpdateLayout();
+          
         }
         private void cmbMentorList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            datePicker.SelectedDate = null;
+        
             try
             {
                 int Index = cmbMentorList.SelectedIndex + 1;
                 IList<Student> student = (from x in RegisterContext.Students
                                           where x.MentorID == Index
                                           select x).ToList();
-                studentsList.DataContext = student;      
+            
+                studentsList.DataContext = student;
+
+              
             }
-            catch (Exception z )
+            catch (Exception ex )
             {
-                MessageBox.Show(z.Message);              
+                MessageBox.Show(ex.Message);              
             }                       
         }
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -79,47 +83,33 @@ namespace Rectify
                                            where d.AttendanceDate == picker && x.ID == d.StudentID
                                            select x).ToList();
                 studentsList.ItemsSource = student;
+                
             }
         }
         private void studentsList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {     
-         editStudent(this.studentsList.SelectedItem as Student);
+        {
+            int id = studentsList.SelectedIndex;
+            this.StudentDetails();
         }
         private void studentsList_Loaded(object sender, RoutedEventArgs e)
         {          
         }
-        private void studentsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private  IList<AttendanceDetail>  StudentDetails()
         {
-            int studID = studentsList.SelectedIndex + 1;
+
             IList<AttendanceDetail> details = (from d in RegisterContext.AttendanceDetails
                                              
-                                              select d).ToList();
-            attendanceDetails.DataContext = details;
+                                               select d).ToList();            
+            attendanceDetails.ItemsSource = details;
+            return details;
+        }    
+        private void studentsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //this.StudentDetails(this.studentsList.SelectedItem as Student);                 
         }
         private void attendanceDetails_Loaded(object sender, RoutedEventArgs e)
         {         
-        }
-        private  void addnewStudent()
-        {
-            using (RegisterDBEntities db = new RegisterDBEntities())
-            {
-                StudentForm sf = new StudentForm();
-                sf.Title = "New Student for Class ";
-                if (sf.ShowDialog().Value)
-                {
-                    Student student = new Student();
-                    student.FirstName = sf.txtFirstName.Text;
-                    student.LastName = sf.txtLastname.Text;
-                    student.Email = sf.txtEmail.Text;
-                    student.Home_Address = sf.txtHome_Address.Text;
-                    student.DateOfBirth = (DateTime)sf.dtPicker.SelectedDate;
-                    student.MentorID = Convert.ToInt32(sf.cmbStudentMentor.SelectedValue.ToString());
-                    student.Phone = sf.txtNumber.Text;
-                                    
-                    db.Students.Add(student);
-                }
-            }
-        }
+        }     
         private void editStudent(Student student)
         {
             StudentForm sf = new StudentForm();
@@ -138,37 +128,48 @@ namespace Rectify
                 student.Home_Address = sf.txtHome_Address.Text;
                 student.Phone = sf.txtNumber.Text;
                 student.DateOfBirth = (DateTime)sf.dtPicker.SelectedDate;
+
+                btnSave.IsEnabled = true;
             }
         }
         private void removeStudent(Student student)
-        {
+        {             
+            try
+            {
                 MessageBoxResult response = MessageBox.Show(
-                String.Format("Remove {0}", student.FirstName + " " + student.LastName),
-                "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question,
-                MessageBoxResult.No);          
-            if (response == MessageBoxResult.Yes)
-            {               
-                this.RegisterContext.Students.Remove(student);
-                this.RegisterContext.SaveChanges();                       
+              String.Format("Remove {0}", student.FirstName + " " + student.LastName),
+              "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question,
+              MessageBoxResult.No);
+                if (response == MessageBoxResult.Yes)
+                {
+                    this.RegisterContext.Students.Attach(student);
+                    this.RegisterContext.Students.Remove(student);
+                    this.RegisterContext.SaveChanges();
+                }
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("User not Deleted" + ex.Message);
             }
         }
         private void button_Click(object sender, RoutedEventArgs e)
         {                         
         }
         private void btnSave_Click(object sender, RoutedEventArgs e)
-        {        
-            this.RegisterContext.SaveChanges();
-            btnSave.IsEnabled = true;
+        {           
         }
         private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
             removeStudent(this.studentsList.SelectedItem as Student);
+           
             this.RegisterContext.SaveChanges();
-          
+            
+                     
         }
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            addnewStudent();          
+            StudentForm sf = new StudentForm();
+            sf.Show();
         }
     }
 }

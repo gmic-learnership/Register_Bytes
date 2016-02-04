@@ -8,17 +8,7 @@
         Title="Learnership Attendance Details" Height="500" Width="967"  Loaded="Window_Loaded" Foreground="#FF3D89D4" Background="#FF2800FF" Icon="Media/Dvtlogo.png">
 
     <Window.Resources>
-        <DataTemplate x:Key="ClassTemplate">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding Path=Firstname}"/>
-                <TextBlock Text=""/>
-                <TextBlock Text="{Binding Path=LastName}"/>
-                <TextBlock Text=": ---"/>
-                <TextBlock Text="{Binding Path=JobTitle}"/>
-
-            </StackPanel>
-
-        </DataTemplate>
+       
     </Window.Resources>
     <Grid Margin="0,0,64,41">
         <Grid.ColumnDefinitions>
@@ -84,7 +74,7 @@
 
             <ListView Height="Auto" Grid.Row="2"
                   HorizontalAlignment="Stretch"                  
-                  Margin="171,10,105,25" x:Name="attendanceDetails"
+                  Margin="171,10,105,-56" x:Name="attendanceDetails"
                   VerticalAlignment="Stretch"
                   Width="Auto" 
                   IsSynchronizedWithCurrentItem="True"
@@ -96,9 +86,6 @@
                            DisplayMemberBinding="{Binding Path=HoursPerDay}" />
                             <GridViewColumn Width="190" Header="Attendance Date"
                            DisplayMemberBinding="{Binding Path=AttendanceDate}" />
-
-
-
                         </GridView.Columns>
                     </GridView>
                 </ListView.View>
@@ -106,8 +93,8 @@
             <TextBlock Text="Select Date" FontSize="24" FontWeight="Bold" Foreground="White" VerticalAlignment="Bottom" Grid.ColumnSpan="2" Margin="10,0,318,10" />
             <DatePicker  x:Name="datePicker" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="23" Width="156" SelectedDateChanged="DatePicker_SelectedDateChanged" Grid.Row="1"/>
         </Grid>
-        <Button x:Name="button" Content="Delete" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="682,323,0,0" VerticalAlignment="Top" Width="74" Click="btnDelete_Click"/>
-        <Button x:Name="btnSave" Content="Save" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="587,323,0,0" VerticalAlignment="Top" Width="74" Click="btnSave_Click"  />
-        <Button x:Name="btnAdd" Content="Add" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="481,323,0,0" VerticalAlignment="Top" Width="80" Click="btnAdd_Click"  />
+        <Button x:Name="button" Content="Delete" Style="{StaticResource myButton}" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="682,323,0,0" VerticalAlignment="Top" Width="74" Click="btnDelete_Click"/>
+        <Button x:Name="btnSave" Content="Save"  Style="{StaticResource myButton}" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="587,323,0,0" VerticalAlignment="Top" Width="74" Click="btnSave_Click"  />
+        <Button x:Name="btnAdd" Content="Add"  Style="{StaticResource myButton}" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="481,323,0,0" VerticalAlignment="Top" Width="80" Click="btnAdd_Click"  />
     </Grid>
 </Window>
