@@ -5,96 +5,45 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rectify"
         mc:Ignorable="d"
-        Title="Learnership Attendance Details" Height="500" Width="967"  Loaded="Window_Loaded" Foreground="#FF3D89D4" Background="#FF2800FF" Icon="Media/Dvtlogo.png">
+        Title="Learnership Attendance Details" Height="500" Width="600"  Loaded="Window_Loaded" Style="{StaticResource windowStyle}" Icon="Media/Dvtlogo.png">
 
     <Window.Resources>
-       
+
     </Window.Resources>
-    <Grid Margin="0,0,64,41">
+    <Grid Margin="10,0,2,41">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="119*"/>
-            <ColumnDefinition Width="873*"/>
+            <ColumnDefinition Width="0*"/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-
-        <Grid Margin="-10,0,10,27" Grid.ColumnSpan="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <ContentControl x:Name="pageLogo" ContentTemplate="{StaticResource LogoTemplate}"  Grid.Column="2" VerticalAlignment="Center" Margin="157,10,10,79" HorizontalAlignment="Center" Height="45" Width="132"/>
-            <TextBlock Text="Select Mentor :" FontSize="24" FontWeight="Bold" Foreground="White" HorizontalAlignment ="Right"  VerticalAlignment="Bottom" Grid.Column="1" Margin="0,0,278,4" Grid.ColumnSpan="2"/>
-            <ComboBox x:Name="cmbMentorList"
+        <ContentControl x:Name="pageLogo" ContentTemplate="{StaticResource LogoTemplate}" VerticalAlignment="Center" Margin="251,16,190,376" HorizontalAlignment="Center" Height="36" Width="139" Grid.Column="1"/>
+        <TextBlock x:Name="Username" Text="{Binding }" Foreground="White" TextDecorations="Underline" FontWeight="Bold" FontSize="10pt" VerticalAlignment="Center" HorizontalAlignment="Right" Height="26" Width="141" Grid.Column="1" Margin="0,31,62,371" />
+        <TextBlock TextWrapping="Wrap" Foreground="White" Height="38" Margin="532,31,0,359" RenderTransformOrigin="0.093,1.658" HorizontalAlignment="Left" Width="29" Grid.ColumnSpan="2">
+                   
+                        <Run FontSize="18"  Text="▼" Foreground="White" MouseEnter="run_MouseEnter"/></TextBlock>
+        <Popup x:Name="popLink" StaysOpen="False" Placement="Mouse" MaxWidth="200" PopupAnimation="Scroll" AllowsTransparency="True">
+            <Border BorderBrush="Beige" BorderThickness="2" Background="White">
+                <TextBlock Margin="10" TextWrapping="Wrap"><Hyperlink  FontWeight="Bold" FontSize="16" Click="lnk_Click"><Run Text="Logout"/></Hyperlink><LineBreak/><Hyperlink FontWeight="Bold" FontSize="16" Click="lnk_Click"><Run Text="Profile"/></Hyperlink></TextBlock>
+            </Border>
+        </Popup>
+        <ComboBox x:Name="cmbMentorList"
                   HorizontalAlignment="Stretch"
                   Height="23"                                
-                  Margin="40,101,10,0"                
-                  VerticalAlignment="Top"
-                  ItemsSource="{Binding}" 
-                  ItemTemplate="{StaticResource ClassTemplate}"
+                  Margin="20,0,398,148"                
+                  VerticalAlignment="Bottom"
+                  ItemsSource="{Binding}"                  
                   Width="Auto"
-                  IsSynchronizedWithCurrentItem="True" Grid.Column="2" SelectionChanged="cmbMentorList_SelectionChanged" RenderTransformOrigin="0.443,0.609"/>
+                  IsSynchronizedWithCurrentItem="True" SelectionChanged="cmbMentorList_SelectionChanged" RenderTransformOrigin="0.469,0.609" Grid.Column="1"/>
+        <TextBlock FontSize="24" FontWeight="Bold" Foreground="White" VerticalAlignment="Bottom" Margin="20,0,425,254" Grid.Column="1" Height="32" ><Run Text=" Date"/><Run Text=" *"/></TextBlock>
+        <DatePicker  x:Name="datePicker" HorizontalAlignment="Left" Margin="20,174,0,0" VerticalAlignment="Top" Height="23" Width="168" SelectedDateChanged="DatePicker_SelectedDateChanged" Grid.Column="1" DisplayDateEnd="2016-08-03" DisplayDateStart="2015-08-03"/>
+        <ComboBox x:Name="cmbStudent" ItemsSource="{Binding}"    ItemTemplate="{StaticResource StudentList}"  Grid.Column="1" Margin="219,174,232,0" VerticalAlignment="Top" Height="22"/>
+        <TextBlock x:Name="textBlock"  FontSize="24" FontWeight="Bold" Foreground="White" HorizontalAlignment="Left" Margin="20,220,0,0" TextWrapping="Wrap" Text="Mentor *" VerticalAlignment="Top" RenderTransformOrigin="-9.316,0.354" Width="102" Grid.Column="1" Height="32"/>
+        <Button x:Name="btnBack" Style="{StaticResource myButton}" Content="Back" HorizontalAlignment="Left" Margin="1,14,0,0" VerticalAlignment="Top" Width="51" Height="34" Click="btn_back" Grid.Column="1"/>
+        <TextBlock x:Name="txtName" HorizontalAlignment="Left" Margin="57,16,0,0" TextWrapping="Wrap"  FontSize="24" Foreground="White" Text="Daily Register" VerticalAlignment="Top" RenderTransformOrigin="0.194,0.969" Width="147" Grid.Column="1" Height="32"/>
+        <TextBox x:Name="txtHours" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="377,174,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="153"></TextBox>
+        <TextBox x:Name="txtTask" SpellCheck.IsEnabled="True"  Grid.Column="1" HorizontalAlignment="Left" Height="82" Margin="20,314,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="162"/>
 
-            <ListView Height="Auto" Grid.Row="1"
-                  HorizontalAlignment="Stretch"                  
-                  Margin="171,1,-14,132" x:Name="studentsList"
-                  VerticalAlignment="Stretch"
-                  Width="Auto" 
-                  MouseDoubleClick="studentsList_MouseDoubleClick"
-                  IsSynchronizedWithCurrentItem="True"
-                  ItemsSource="{Binding}" Grid.ColumnSpan="3" Loaded="studentsList_Loaded" SelectionChanged="studentsList_SelectionChanged" Grid.RowSpan="2">
-                <ListView.View>
-                    <GridView>
-                        <GridView.Columns>
-                            <GridViewColumn Width="75" Header="First Name"
-                           DisplayMemberBinding="{Binding Path=FirstName}" />
-                            <GridViewColumn Width="190" Header="Last Name"
-                           DisplayMemberBinding="{Binding Path=LastName}" />
-
-                            <GridViewColumn Width="190" Header="Email"
-                           DisplayMemberBinding="{Binding Path=Email}" />
-
-                            <GridViewColumn Width="90" Header="Date of Birth"
-                            DisplayMemberBinding="{Binding Path=DateOfBirth}"/>
-
-                            <GridViewColumn Width="75" Header="Address"
-                             DisplayMemberBinding="{Binding Path=Home_Address}"/>
-
-                            <GridViewColumn Width="75" Header="Phone"
-                            DisplayMemberBinding="{Binding Path=Phone}"/>
-                        </GridView.Columns>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-
-            <ListView Height="Auto" Grid.Row="2"
-                  HorizontalAlignment="Stretch"                  
-                  Margin="171,10,105,-56" x:Name="attendanceDetails"
-                  VerticalAlignment="Stretch"
-                  Width="Auto" 
-                  IsSynchronizedWithCurrentItem="True"
-                  ItemsSource="{Binding}" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2">
-                <ListView.View>
-                    <GridView>
-                        <GridView.Columns>
-                            <GridViewColumn Width="75" Header="Hours"
-                           DisplayMemberBinding="{Binding Path=HoursPerDay}" />
-                            <GridViewColumn Width="190" Header="Attendance Date"
-                           DisplayMemberBinding="{Binding Path=AttendanceDate}" />
-                        </GridView.Columns>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-            <TextBlock Text="Select Date" FontSize="24" FontWeight="Bold" Foreground="White" VerticalAlignment="Bottom" Grid.ColumnSpan="2" Margin="10,0,318,10" />
-            <DatePicker  x:Name="datePicker" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="23" Width="156" SelectedDateChanged="DatePicker_SelectedDateChanged" Grid.Row="1"/>
-        </Grid>
-        <Button x:Name="button" Content="Delete" Style="{StaticResource myButton}" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="682,323,0,0" VerticalAlignment="Top" Width="74" Click="btnDelete_Click"/>
-        <Button x:Name="btnSave" Content="Save"  Style="{StaticResource myButton}" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="587,323,0,0" VerticalAlignment="Top" Width="74" Click="btnSave_Click"  />
-        <Button x:Name="btnAdd" Content="Add"  Style="{StaticResource myButton}" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="481,323,0,0" VerticalAlignment="Top" Width="80" Click="btnAdd_Click"  />
+        <Button x:Name="btnSave" Content="Save" Style="{StaticResource myButton}" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="456,299,0,0" VerticalAlignment="Top" Width="74" Click="btnSave_Click" RenderTransformOrigin="0.595,1.421"/>
+        <Button x:Name="btnCancel" Content="Cancel"  Style="{StaticResource myButton}" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="377,299,0,0" VerticalAlignment="Top" Width="74" Click="btnCancel_Click"  />
+        <TextBlock x:Name="txtTotal" Grid.Column="1" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Margin="377,383,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="169" Height="16" RenderTransformOrigin="1.079,7.562"><Run Text=""/></TextBlock>
     </Grid>
 </Window>

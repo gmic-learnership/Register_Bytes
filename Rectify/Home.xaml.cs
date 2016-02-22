@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Rectify.Model;
+using Rectify.Data;
 
 namespace Rectify
 {
@@ -23,28 +25,38 @@ namespace Rectify
         {
             InitializeComponent();
         }
-
         private void btnRegister_Click(object sender, RoutedEventArgs e)
-        {
-            Home home = new Home();
-            home.Close();
-            MainWindow StudentListMenu = new MainWindow();
-            StudentListMenu.Show();        
+        {                    
+            MainWindow StudentListMenu = new MainWindow();         
+            StudentListMenu.Show();
+            this.Close();
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
+            LoginName.DataContext = "Welcome, " + SessionContext.UserName;
         }
-
-        private void Button_Click_1(object sender, RoutedEventArgs e)
-        {
-
+        private void btnManage_Click(object sender, RoutedEventArgs e)
+        {          
+            Manage manage = new Manage();
+            manage.Show();
+            this.Close();
         }
-
-        private void Button_Click_2(object sender, RoutedEventArgs e)
+        private void run_MouseEnter(object sender, MouseEventArgs e)
         {
-
+            popLink.IsOpen = true;
+        }
+        private void lnk_Click(object sender, RoutedEventArgs e)
+        {
+            popLink.IsOpen = false;
+            Login login = new Login();
+            login.Show();
+            this.Hide();          
+        }
+        private void btn_back(object sender, RoutedEventArgs e)
+        {
+            Login login = new Login();
+            login.Show();
+            this.Hide();
         }
     }
 }

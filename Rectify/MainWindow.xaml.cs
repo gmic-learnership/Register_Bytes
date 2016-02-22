@@ -17,6 +17,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Data.Metadata.Edm;
 using System.Data.Entity.Core.Objects;
+using System.Data.Objects;
+using Rectify.Model;
+using Rectify.Data.ViewModel;
 
 namespace Rectify
 {
@@ -29,147 +32,112 @@ namespace Rectify
         {
             InitializeComponent();
         }
-
-        private RegisterDBEntities RegisterContext = null;              
-        public IList<AttendanceMaster> GetMentors()
+        Home home = null;
+        private RegisterDBEntities RegisterContext = null;
+        public void GetMentors()
         {
             try
-            {
-                using (RegisterDBEntities db = new RegisterDBEntities())
+            {             
+                using (RegisterContext = new RegisterDBEntities())
                 {
-                    IList<AttendanceMaster> _mentor = (from x in db.AttendanceMasters select x).ToList();
-                    return _mentor;
+                    foreach (var d in RegisterContext.AttendanceMasters)
+                    {
+                        cmbMentorList.Items.Add(d.FirstName + "  " + d.LastName.Substring(0, 1).ToUpper());
+                    }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return null;
+                MessageBox.Show("mentors not found" + ex.Message);
             }
-        }         
+        }      
         public void Window_Loaded(object sender, RoutedEventArgs e)
-        {
+        {           
             RegisterContext = new RegisterDBEntities();
-            cmbMentorList.DataContext = this.GetMentors();
-            this.UpdateLayout();
-          
+            datePicker.SelectedDate = DateTime.Now;
+            cmbStudent.SelectedIndex = 1;
+            cmbMentorList.SelectedIndex = 1;
+            GetMentors();
+            Username.Text = "Welcome ," + SessionContext.UserName;            
         }
         private void cmbMentorList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-        
             try
             {
                 int Index = cmbMentorList.SelectedIndex + 1;
-                IList<Student> student = (from x in RegisterContext.Students
-                                          where x.MentorID == Index
-                                          select x).ToList();
-            
-                studentsList.DataContext = student;
-
-              
+                using (RegisterContext = new RegisterDBEntities())
+                {
+                    IList<Student> student = (from x in RegisterContext.Students                                             
+                                              where x.MentorID == Index
+                                              select x).ToList();           
+                    cmbStudent.DataContext= student;
+                    txtTotal.Text = "No. of Students" +"  " + cmbStudent.Items.Count.ToString();                   
+                }
             }
-            catch (Exception ex )
+            catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);              
-            }                       
+                MessageBox.Show(ex.Message);
+            }
         }
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            DateTime picker = new DateTime();      
-            using (RegisterDBEntities db = new RegisterDBEntities())
+            DateTime picker = new DateTime();
+            cmbStudent.SelectedIndex = 1;
+            using (RegisterContext = new RegisterDBEntities())
             {
-                picker = (DateTime)datePicker.SelectedDate;
-                IList<Student> student = (from x in db.Students
-                                           from d in db.AttendanceDetails
-                                           where d.AttendanceDate == picker && x.ID == d.StudentID
+                picker = (DateTime)datePicker.SelectedDate;          
+                IList<Student> student = (from x in RegisterContext.Students    
+                                          from d in RegisterContext.AttendanceDetail1                              
+                                          where d.AttendanceDate == picker && x.ID == d.StudentID
                                            select x).ToList();
-                studentsList.ItemsSource = student;
+                cmbStudent.DataContext = student;
                 
+                txtTotal.Text = "No. of Attendance(s)" + "  " + cmbStudent.Items.Count.ToString();
             }
-        }
-        private void studentsList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            int id = studentsList.SelectedIndex;
-            this.StudentDetails();
-        }
-        private void studentsList_Loaded(object sender, RoutedEventArgs e)
-        {          
-        }
-        private  IList<AttendanceDetail>  StudentDetails()
-        {
-
-            IList<AttendanceDetail> details = (from d in RegisterContext.AttendanceDetails
-                                             
-                                               select d).ToList();            
-            attendanceDetails.ItemsSource = details;
-            return details;
-        }    
-        private void studentsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            //this.StudentDetails(this.studentsList.SelectedItem as Student);                 
-        }
-        private void attendanceDetails_Loaded(object sender, RoutedEventArgs e)
-        {         
-        }     
-        private void editStudent(Student student)
-        {
-            StudentForm sf = new StudentForm();
-            sf.Title = "Edit Student Details";
-            sf.txtFirstName.Text = student.FirstName;
-            sf.txtLastname.Text = student.LastName;
-            sf.txtEmail.Text = student.Email;
-            sf.txtNumber.Text = student.Phone;
-            sf.txtHome_Address.Text = student.Home_Address;
-            sf.dtPicker.SelectedDate = student.DateOfBirth;
-            if (sf.ShowDialog().Value)
-            {
-                student.FirstName = sf.txtFirstName.Text;
-                student.LastName = sf.txtLastname.Text;
-                student.Email = sf.txtFirstName.Text;
-                student.Home_Address = sf.txtHome_Address.Text;
-                student.Phone = sf.txtNumber.Text;
-                student.DateOfBirth = (DateTime)sf.dtPicker.SelectedDate;
-
-                btnSave.IsEnabled = true;
-            }
-        }
-        private void removeStudent(Student student)
-        {             
-            try
-            {
-                MessageBoxResult response = MessageBox.Show(
-              String.Format("Remove {0}", student.FirstName + " " + student.LastName),
-              "Confirm", MessageBoxButton.YesNo, MessageBoxImage.Question,
-              MessageBoxResult.No);
-                if (response == MessageBoxResult.Yes)
-                {
-                    this.RegisterContext.Students.Attach(student);
-                    this.RegisterContext.Students.Remove(student);
-                    this.RegisterContext.SaveChanges();
-                }
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show("User not Deleted" + ex.Message);
-            }
-        }
-        private void button_Click(object sender, RoutedEventArgs e)
-        {                         
         }
         private void btnSave_Click(object sender, RoutedEventArgs e)
-        {           
-        }
-        private void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-            removeStudent(this.studentsList.SelectedItem as Student);
-           
-            this.RegisterContext.SaveChanges();
-            
-                     
-        }
-        private void btnAdd_Click(object sender, RoutedEventArgs e)
+            try
+            {
+                SignModel signModel = new SignModel();
+
+                AttendanceDetail1 detail = new AttendanceDetail1();
+                detail.Task_Completed = txtTask.Text;
+                detail.HoursPerDay = Convert.ToDecimal(txtHours.Text);
+                detail.StudentID = SessionContext.UserID;
+                detail.AttendanceDate = (DateTime)datePicker.SelectedDate;
+                MessageBox.Show(signModel.SignRegister(detail));
+                txtTask.Clear();
+                txtHours.Clear();
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.Message);
+            }           
+        }         
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
-            StudentForm sf = new StudentForm();
-            sf.Show();
+            this.Close();
+             home = new Home();
+            home.Visibility = Visibility.Visible;
+        }
+        private void lnk_Click(object sender, RoutedEventArgs e)
+        {
+            popLink.IsOpen = false;
+            Login login = new Login();
+            login.Show();
+            this.Hide();
+        }
+        private void run_MouseEnter(object sender, MouseEventArgs e)
+        {
+            popLink.IsOpen = true;
+        }
+        private void btn_back(object sender, RoutedEventArgs e)
+        {
+            home = new Home();
+            home.Show();
+            this.Hide();
         }
     }
 }

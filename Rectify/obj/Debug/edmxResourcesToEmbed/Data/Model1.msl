@@ -1,37 +1,41 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="RegisterDBModelStoreContainer" CdmEntityContainer="RegisterDBEntities">
-    <EntitySetMapping Name="AttendanceDetails">
-      <EntityTypeMapping TypeName="RegisterDBModel.AttendanceDetail">
-        <MappingFragment StoreEntitySet="AttendanceDetail">
+    <EntitySetMapping Name="Students">
+      <EntityTypeMapping TypeName="RegisterDBModel.Student">
+        <MappingFragment StoreEntitySet="Students">
+          <ScalarProperty Name="MentorID" ColumnName="MentorID" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Home_Address" ColumnName="Home_Address" />
+          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
           <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
-          <ScalarProperty Name="HoursPerDay" ColumnName="HoursPerDay" />
-          <ScalarProperty Name="AttendanceDate" ColumnName="AttendanceDate" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="AttendanceMasters">
       <EntityTypeMapping TypeName="RegisterDBModel.AttendanceMaster">
         <MappingFragment StoreEntitySet="AttendanceMaster">
-          <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="JobTitile" ColumnName="JobTitile" />
           <ScalarProperty Name="LastName" ColumnName="LastName" />
-          <ScalarProperty Name="JobTitle" ColumnName="JobTitle" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Students">
-      <EntityTypeMapping TypeName="RegisterDBModel.Student">
-        <MappingFragment StoreEntitySet="Student">
+    <EntitySetMapping Name="AttendanceDetail1">
+      <EntityTypeMapping TypeName="RegisterDBModel.AttendanceDetail1">
+        <MappingFragment StoreEntitySet="AttendanceDetails">
+          <ScalarProperty Name="Task_Completed" ColumnName="Task_Completed" />
+          <ScalarProperty Name="AttendanceDate" ColumnName="AttendanceDate" />
+          <ScalarProperty Name="HoursPerDay" ColumnName="HoursPerDay" />
+          <ScalarProperty Name="StudentID" ColumnName="StudentID" />
           <ScalarProperty Name="ID" ColumnName="ID" />
-          <ScalarProperty Name="MentorID" ColumnName="MentorID" />
-          <ScalarProperty Name="LastName" ColumnName="LastName" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="DateOfBirth" ColumnName="DateOfBirth" />
-          <ScalarProperty Name="Home_Address" ColumnName="Home_Address" />
-          <ScalarProperty Name="Phone" ColumnName="Phone" />
-          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

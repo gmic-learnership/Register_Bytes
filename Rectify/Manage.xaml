@@ -1,0 +1,79 @@
+﻿<Window x:Class="Rectify.Manage"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Rectify"
+        mc:Ignorable="d"
+        Title="Manage" Height="500" Width="800" Style="{StaticResource windowStyle}" Icon="Media/Dvtlogo.png" Loaded="Window_Loaded">
+    <Window.Resources>
+
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="160*"/>
+            <ColumnDefinition Width="433*"/>
+        </Grid.ColumnDefinitions>
+
+        <ListView Height="Auto"
+                  HorizontalAlignment="Stretch"                  
+                  Margin="10,127,29,222" x:Name="studentsList"
+                  VerticalAlignment="Stretch"
+                  Width="Auto" 
+                  IsSynchronizedWithCurrentItem="True"
+                  ItemsSource="{Binding}" Loaded="studentsList_Loaded" SelectionChanged="studentsList_SelectionChanged" Grid.ColumnSpan="2">
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn Width="75" Header="First Name"
+                           DisplayMemberBinding="{Binding Path=FirstName}" />
+                        <GridViewColumn Width="190" Header="Last Name"
+                           DisplayMemberBinding="{Binding Path=LastName}" />
+                        <GridViewColumn Width="190" Header="Email"
+                           DisplayMemberBinding="{Binding Path=Username}" />
+                        <GridViewColumn Width="90" Header="Date of Birth"
+                            DisplayMemberBinding="{Binding Path=DateOfBirth}"/>
+                        <GridViewColumn Width="75" Header="Address"
+                             DisplayMemberBinding="{Binding Path=Home_Address}"/>
+                        <GridViewColumn Width="75" Header="Contact"
+                            DisplayMemberBinding="{Binding Path=Phone}"/>
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <ListView Height="Auto"
+                  HorizontalAlignment="Stretch"                  
+                  Margin="10,271,198,66" x:Name="attendanceDetails"
+                  VerticalAlignment="Stretch"
+                  Width="Auto" 
+                  IsSynchronizedWithCurrentItem="True"
+                  ItemsSource="{Binding}" RenderTransformOrigin="0.5,0.5" Grid.ColumnSpan="2">
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn Width="75" Header="Hours"
+                           DisplayMemberBinding="{Binding Path=HoursPerDay}" />
+                        <GridViewColumn Width="190" Header="Attendance Date"
+                           DisplayMemberBinding="{Binding Path=AttendanceDate}" />
+                        <GridViewColumn Width="190" Header="Task Completed"
+                           DisplayMemberBinding="{Binding Path=Task_Completed}" />
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <TextBlock x:Name="txtTotal" Grid.Column="1" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Margin="176,430,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="169" Height="16" RenderTransformOrigin="1.079,7.562"><Run Text=""/></TextBlock>
+        <Button x:Name="btnAdd" Content="Add" Style="{StaticResource myButton}" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="396,408,0,0" VerticalAlignment="Top" Width="74" Click="btnAdd_Click" RenderTransformOrigin="0.595,1.421"/>
+        <Button x:Name="btnBack" Content="Back" Style="{StaticResource myButton}" HorizontalAlignment="Left" Height="38" Margin="10,21,0,0" VerticalAlignment="Top" Width="74" Click="btnback_Click"/>
+        <Button x:Name="btnDelete" Content="Save" Style="{StaticResource myButton}" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="475,408,0,0" VerticalAlignment="Top" Width="74" Click="btnDelete_Click" RenderTransformOrigin="0.595,1.421"/>
+        <ContentControl x:Name="pageLogo" ContentTemplate="{StaticResource LogoTemplate}"  Margin="0,30,266,389" HorizontalAlignment="Right" RenderTransformOrigin="1.539,-0.519" Width="156" Grid.Column="1"/>
+        <TextBlock x:Name="Name" FontSize="10pt" TextDecorations="Underline" Foreground="White" FontWeight="Bold" Margin="296,46,128,389" Grid.Column="1"/>
+        <TextBlock TextWrapping="Wrap" Foreground="White" Height="38" Margin="475,46,0,385" RenderTransformOrigin="0.093,1.658" HorizontalAlignment="Left" Width="29" Grid.Column="1">
+        <Run FontSize="18"  Text="▼" Foreground="White" MouseEnter="run_MouseEnter"/>
+        </TextBlock>
+        <Popup x:Name="popLink" StaysOpen="False" Placement="Mouse" MaxWidth="200" PopupAnimation="Scroll" AllowsTransparency="True">
+            <Border BorderBrush="Beige" BorderThickness="2" Background="White">
+                <TextBlock Margin="10" TextWrapping="Wrap"><Hyperlink  FontWeight="Bold" FontSize="16" Click="lnk_Click"><Run Text="Logout"/></Hyperlink><LineBreak/><Hyperlink FontWeight="Bold" FontSize="16" Click="lnk_Click"><Run Text="Profile"/></Hyperlink></TextBlock>
+            </Border>
+        </Popup>
+    </Grid>
+</Window>

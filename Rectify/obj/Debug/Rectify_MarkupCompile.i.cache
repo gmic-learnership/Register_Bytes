@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Wmaluleke\Desktop\DigitalRegister\Rectify\Rectify\App.xaml
-3-1752849716
+6-1401956753
 2-747231112
-171450963946
+212083345555
 192144980114
-Home.xaml;MainWindow.xaml;StudentForm.xaml;
+CustomStyle.xaml;Login.xaml;Home.xaml;MainWindow.xaml;Manage.xaml;StudentForm.xaml;
 
-True
+False
 

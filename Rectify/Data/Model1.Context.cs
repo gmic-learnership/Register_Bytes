@@ -25,8 +25,8 @@ namespace Rectify.Data
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<AttendanceDetail> AttendanceDetails { get; set; }
-        public virtual DbSet<AttendanceMaster> AttendanceMasters { get; set; }
         public virtual DbSet<Student> Students { get; set; }
+        public virtual DbSet<AttendanceMaster> AttendanceMasters { get; set; }
+        public virtual DbSet<AttendanceDetail1> AttendanceDetail1 { get; set; }
     }
 }

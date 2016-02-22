@@ -1,8 +1,10 @@
 ﻿using Rectify.Data;
+using Rectify.Data.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,8 +23,6 @@ namespace Rectify
     public partial class StudentForm : Window
     {
         RegisterDBEntities RegisterContext = null;
-        // Field for tracking the currently selected teacher
-        private AttendanceMaster _mentor = null;
         public StudentForm()
         {
             InitializeComponent();
@@ -30,84 +30,91 @@ namespace Rectify
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             RegisterDBEntities RegisterContext = new RegisterDBEntities();
-            MainWindow mw = new MainWindow();
-            cmbStudentMentor.ItemsSource = mw.GetMentors();
-            this.cmbStudentMentor.SelectedValue = "Select Mentor";
-     
-        
+            txtFirstName.Focus();
+            cmbStudentMentor.SelectedIndex = 1;
+            foreach (var d in RegisterContext.AttendanceMasters)
+            {
+                cmbStudentMentor.Items.Add(d.FirstName + "  " + d.LastName.Substring(0, 1).ToUpper());
+            }                        
         }
-
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-            MainWindow main = new MainWindow();
-            main.Show();
-
+            Login login = new Login();
+            login.Show();
+            this.Hide();
         }
         private void ok_Click(object sender, RoutedEventArgs e)
         {
+            ValidateInput();
+        }
+        private void ValidateInput()
+        {
             try
             {
-                using (RegisterContext = new RegisterDBEntities())
+                if (String.IsNullOrEmpty(this.txtFirstName.Text) || String.IsNullOrEmpty(this.txtLastName.Text) || String.IsNullOrEmpty(this.txtNumber.Text)
+              || String.IsNullOrEmpty(this.txtHome_Address.Text) || String.IsNullOrEmpty(this.txtHome_Address.Text) || String.IsNullOrEmpty(this.ConfirmPassword.Password)
+              || String.IsNullOrEmpty(this.passoword.Password) || String.IsNullOrEmpty(this.txtEmail.Text))
                 {
-                    _mentor = new AttendanceMaster();
-
-                    Student student = new Student();
-                    student.FirstName = txtFirstName.Text;
-                    student.LastName = txtLastname.Text;
-                    student.Email = txtEmail.Text;
-                    student.Home_Address = txtHome_Address.Text;
-                    student.DateOfBirth = DateTime.Parse(dtPicker.SelectedDate.ToString());
-                    student.MentorID = cmbStudentMentor.SelectedIndex; ;
-                    student.Phone = txtNumber.Text;
-
-                    this._mentor.Students.Add(student);
-                    this.RegisterContext.Students.Add(student);
-                    this.RegisterContext.SaveChanges();
+                    MessageBox.Show("Required fields cannot be empty", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                else if ((!Regex.IsMatch(txtEmail.Text, @"^((([\w]+\.[\w]+)+)|([\w]+))@(([\w]+\.)+)([A-Za-z]{1,3})$")))
+                {
+                    MessageBox.Show("Please enter a valid email", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                else if (!Regex.IsMatch(this.passoword.Password, @".*[0-9]+.*[0-9]+.*"))
+                {
+                    MessageBox.Show("Password must contain atleast two numeric character", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                if (this.passoword.Password.Length < 8)
+                {
+                    MessageBox.Show("Password must be 8 characters long","Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                else if (String.Compare(passoword.Password, ConfirmPassword.Password) != 0)
+                {
+                    MessageBox.Show("Password must match", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                else if( txtNumber.Text.Length != 10  )
+                {
+                    MessageBox.Show("The phone number must be 10 digits long", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
                 }              
+                else
+                {
+                    using (RegisterContext = new RegisterDBEntities())
+                    {
+                        Student student = new Student();
+                        SignModel signModel = new SignModel();
+                        student.FirstName = txtFirstName.Text;
+                        student.LastName = txtLastName.Text;
+                        student.Username = txtEmail.Text;
+                        student.Home_Address = txtHome_Address.Text;
+                        student.Password = passoword.Password;
+                        student.DateOfBirth = (DateTime)dtPicker.SelectedDate;
+                        student.MentorID = cmbStudentMentor.SelectedIndex + 1; ;
+                        student.Phone = txtNumber.Text;
+                        MessageBox.Show(signModel.InsertLearner(student));
+                        Login login = new Login();
+                        login.Show();
+                        this.Hide();
+                    }
+                }
             }
-            catch(Exception ex)
+            catch (Exception)
             {
-                MessageBox.Show("User was not added" + "   "  + ex.Message);
-            }
-            
+                MessageBox.Show("Error has occoured");
+            }          
         }
-        private void addnewStudent()
+        private void btncancel_Click(object sender, RoutedEventArgs e)
         {
-            
+            Login login = new Login();
+            login.Show();
+            this.Hide();
         }
-        private void ValiddateInput()
-        {
-            if (String.IsNullOrEmpty(this.txtFirstName.Text))
-            {
-                MessageBox.Show("The student must have a first name", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            else if (String.IsNullOrEmpty(this.txtLastname.Text))
-            {
-                MessageBox.Show("The student must have a last name", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            else if (String.IsNullOrEmpty(this.txtEmail.Text))
-            {
-                MessageBox.Show("The student must have an Email", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            else if (String.IsNullOrEmpty(this.txtHome_Address.Text))
-            {
-                MessageBox.Show("The student must have Address", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-            else if (String.IsNullOrEmpty(this.txtNumber.Text))
-            {
-                MessageBox.Show("The student must have Contact number", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-          
-        }
-       }
-            
-    
-
-}
+    }
+  }            
 

@@ -1,75 +1,75 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="RegisterDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityType Name="AttendanceDetail">
+  <EntityType Name="AttendanceDetails">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="StudentID" Type="int" Nullable="false" />
-    <Property Name="HoursPerDay" Type="int" Nullable="false" />
+    <Property Name="HoursPerDay" Type="numeric" Precision="18" Scale="0" Nullable="false" />
     <Property Name="AttendanceDate" Type="datetime" Nullable="false" />
+    <Property Name="Task_Completed" Type="nvarchar" MaxLength="250" Nullable="false" />
   </EntityType>
   <EntityType Name="AttendanceMaster">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="30" Nullable="false" />
     <Property Name="FirstName" Type="nvarchar" MaxLength="30" Nullable="false" />
     <Property Name="LastName" Type="nvarchar" MaxLength="30" Nullable="false" />
-    <Property Name="JobTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="JobTitile" Type="nvarchar" MaxLength="40" Nullable="false" />
   </EntityType>
-  <EntityType Name="Student">
+  <EntityType Name="Students">
     <Key>
       <PropertyRef Name="ID" />
     </Key>
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="MentorID" Type="int" Nullable="false" />
+    <Property Name="Username" Type="nvarchar" MaxLength="40" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="30" Nullable="false" />
     <Property Name="LastName" Type="nvarchar" MaxLength="30" Nullable="false" />
-    <Property Name="Email" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="DateOfBirth" Type="datetime" Nullable="false" />
+    <Property Name="DateOfBirth" Type="date" Nullable="false" />
     <Property Name="Home_Address" Type="nvarchar" MaxLength="50" Nullable="false" />
-    <Property Name="Phone" Type="nvarchar" MaxLength="12" Nullable="false" />
-    <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Phone" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="MentorID" Type="int" Nullable="false" />
   </EntityType>
-  <Association Name="FK_AttendanceDetail_Student">
-    <End Role="Student" Type="Self.Student" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="AttendanceDetail" Type="Self.AttendanceDetail" Multiplicity="*" />
+  <Association Name="FK_AttendanceDetails_Students">
+    <End Role="Students" Type="Self.Students" Multiplicity="1" />
+    <End Role="AttendanceDetails" Type="Self.AttendanceDetails" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Student">
+      <Principal Role="Students">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="AttendanceDetail">
+      <Dependent Role="AttendanceDetails">
         <PropertyRef Name="StudentID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Student_AttendanceMaster">
-    <End Role="AttendanceMaster" Type="Self.AttendanceMaster" Multiplicity="1">
-      <OnDelete Action="Cascade" />
-    </End>
-    <End Role="Student" Type="Self.Student" Multiplicity="*" />
+  <Association Name="FK_Students_AttendanceMaster">
+    <End Role="AttendanceMaster" Type="Self.AttendanceMaster" Multiplicity="1" />
+    <End Role="Students" Type="Self.Students" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="AttendanceMaster">
         <PropertyRef Name="ID" />
       </Principal>
-      <Dependent Role="Student">
+      <Dependent Role="Students">
         <PropertyRef Name="MentorID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="RegisterDBModelStoreContainer">
-    <EntitySet Name="AttendanceDetail" EntityType="Self.AttendanceDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AttendanceDetails" EntityType="Self.AttendanceDetails" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="AttendanceMaster" EntityType="Self.AttendanceMaster" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="Student" EntityType="Self.Student" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_AttendanceDetail_Student" Association="Self.FK_AttendanceDetail_Student">
-      <End Role="Student" EntitySet="Student" />
-      <End Role="AttendanceDetail" EntitySet="AttendanceDetail" />
+    <EntitySet Name="Students" EntityType="Self.Students" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_AttendanceDetails_Students" Association="Self.FK_AttendanceDetails_Students">
+      <End Role="Students" EntitySet="Students" />
+      <End Role="AttendanceDetails" EntitySet="AttendanceDetails" />
     </AssociationSet>
-    <AssociationSet Name="FK_Student_AttendanceMaster" Association="Self.FK_Student_AttendanceMaster">
+    <AssociationSet Name="FK_Students_AttendanceMaster" Association="Self.FK_Students_AttendanceMaster">
       <End Role="AttendanceMaster" EntitySet="AttendanceMaster" />
-      <End Role="Student" EntitySet="Student" />
+      <End Role="Students" EntitySet="Students" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

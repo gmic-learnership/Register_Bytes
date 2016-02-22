@@ -12,12 +12,13 @@ namespace Rectify.Data
     using System;
     using System.Collections.Generic;
     
-    public partial class AttendanceDetail
+    public partial class AttendanceDetail1
     {
         public int ID { get; set; }
         public int StudentID { get; set; }
-        public int HoursPerDay { get; set; }
+        public decimal HoursPerDay { get; set; }
         public System.DateTime AttendanceDate { get; set; }
+        public string Task_Completed { get; set; }
     
         public virtual Student Student { get; set; }
     }
