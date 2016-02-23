@@ -5,10 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rectify"
         mc:Ignorable="d"
-        Title="Login" Height="500" Width="500" Loaded="Window_Loaded"  Style="{StaticResource windowStyle}"   Icon="Media/Dvtlogo.png">
+        Title="Please Login"  Loaded="Window_Loaded"  Style="{StaticResource windowStyle}"   Icon="Media/Dvtlogo.png">
     <Grid>
-        <ContentControl x:Name="pageLogo" ContentTemplate="{StaticResource LogoTemplate}"  Margin="0,21,49,403" HorizontalAlignment="Right" Height="45" RenderTransformOrigin="1.539,-0.519" Width="141"/>
-        <Grid Margin="10,10,-10,-10">
+        <ContentControl x:Name="pageLogo" ContentTemplate="{StaticResource LogoTemplate}"  Margin="0,21,349,484" HorizontalAlignment="Right" RenderTransformOrigin="1.539,-0.519" Width="209"/>
+        <ContentControl x:Name="slogan" ContentTemplate="{StaticResource slogan}"  Margin="0,85,213,452" HorizontalAlignment="Right" RenderTransformOrigin="1.539,-0.519" Width="355"/>
+        <Grid Margin="0,21,0,-21">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -31,8 +32,8 @@
             </Grid>
             <Button x:Name="btn" Content="Login" Click="btn_Click" Style="{StaticResource myButton}" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" Margin="125,0,0,0" Width="84" />
             <Grid Margin="-10,0,10,0">
-                <TextBox  Height="30" Width="200" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="txtUsername" Margin="168,202,-268,-76"/>
-                <TextBlock IsHitTestVisible="False" FontSize="16" Text="Yourname@jhb.dvt.co.za" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="168,202,-204,-76" Foreground="DarkGray" Height="30" Width="186">
+                <TextBox  Height="30" Width="200" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Left" x:Name="txtUsername" Margin="168,261,-218,-101"/>
+                <TextBlock IsHitTestVisible="False" FontSize="16" Text="Yourname@jhb.dvt.co.za" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="168,261,-204,-101" Foreground="DarkGray" Height="30" Width="186" RenderTransformOrigin="0.522,0.1">
                     <TextBlock.Style>
                         <Style TargetType="{x:Type TextBlock}">
                             <Setter Property="Visibility" Value="Collapsed"/>
@@ -46,7 +47,7 @@
                 </TextBlock>
             </Grid>
             <Grid Margin="-10,0,10,0">
-                <PasswordBox x:Name="txtPassword" HorizontalAlignment="Left" Margin="168,237,-268,-111" VerticalAlignment="Top" Height="30" Width="200" FontWeight="Bold" Background="White" IsInactiveSelectionHighlightEnabled="True"/>
+                <PasswordBox x:Name="txtPassword" HorizontalAlignment="Left" Margin="168,299,-218,-137" VerticalAlignment="Top" Height="30" Width="200" FontWeight="Bold" Background="White" IsInactiveSelectionHighlightEnabled="True"/>
                 <TextBlock IsHitTestVisible="False" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="168,237,-195,-111" Foreground="DarkGray" Height="30" Width="177">
                     <TextBlock.Style>
                         <Style TargetType="{x:Type TextBlock}">

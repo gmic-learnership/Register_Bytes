@@ -1,0 +1,40 @@
+﻿<Window x:Class="Rectify.About"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Rectify"
+        mc:Ignorable="d"
+        Title="About us" Style="{StaticResource windowStyle}" Loaded="Window_Loaded" Icon="Media/Dvtlogo.png">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="207*"/>
+            <RowDefinition Height="53*"/>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="300*"/>
+        </Grid.RowDefinitions>
+        <ContentControl x:Name="pageLogo" ContentTemplate="{StaticResource LogoTemplate}"  Margin="0,40,193,111" HorizontalAlignment="Right" RenderTransformOrigin="1.539,-0.519" Width="180"/>
+        <TextBlock Margin="10,161,-10,4.745" Foreground="White" FontSize="22" FontWeight="Bold" Grid.RowSpan="3">Company Overview<LineBreak/></TextBlock>
+        <TextBlock x:Name="LoginName" Text="{Binding  }"  Foreground="White"  FontWeight="Bold"  VerticalAlignment="Center" HorizontalAlignment="Right" Height="36" Width="212" Margin="0,40,0,131" RenderTransformOrigin="0.714,0.486" />
+        <TextBlock TextWrapping="Wrap" Foreground="White" Margin="0,63,13,95" RenderTransformOrigin="0.093,1.658" HorizontalAlignment="Right" Width="32">
+            
+         <Run FontSize="18"  Text="▼" Foreground="White" MouseEnter="run_MouseEnter"/></TextBlock>
+        <TextBlock  Margin="10,39,10,112" Foreground="White" FontSize="22" Grid.Row="1" Grid.RowSpan="3">
+
+            DVT,founded in 1999, has grown to over 500 staff with<LineBreak/>
+            offices in Johannesburg,Centurion,Cape Town and Durban.<LineBreak/>
+            We service more than 100 local and international,medium
+            <LineBreak/>and large organisations and build long-term partnerships 
+            <LineBreak/>with our clients.Our services extend from custom software
+            <LineBreak/>development to business software solutions consulting, 
+            <LineBreak/>software quality assurance, enterprise mobility solutions,
+             <LineBreak/>business intelligence solutions;
+          
+        </TextBlock>
+        <Popup x:Name="popLink" StaysOpen="False" Placement="Mouse" MaxWidth="200" PopupAnimation="Scroll" AllowsTransparency="True">
+            <Border BorderBrush="Beige" BorderThickness="2" Background="White">
+                <TextBlock Margin="10" TextWrapping="Wrap"><Hyperlink  FontWeight="Bold" FontSize="16" Click="lnk_Click"><Run Text="Logout"/></Hyperlink><LineBreak/><Hyperlink FontWeight="Bold" FontSize="16" Click="lnk_Click"><Run Text="Profile"/></Hyperlink></TextBlock>
+            </Border>
+        </Popup>
+    </Grid>
+</Window>

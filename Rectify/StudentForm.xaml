@@ -5,42 +5,60 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rectify"
         mc:Ignorable="d"
-        Title="Update Record" Height="580" Loaded="Window_Loaded"    BorderBrush="Blue" Icon="Media/Dvtlogo.png"  Width="500" Style="{StaticResource windowStyle}" HorizontalAlignment="Center">
+        Title="Create Account" Height="580" Loaded="Window_Loaded"    BorderBrush="Blue" Icon="Media/Dvtlogo.png"  Width="500" Style="{StaticResource windowStyle}" HorizontalAlignment="Center">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="125*"/>
             <ColumnDefinition Width="267*"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.ColumnSpan="2" Margin="10,0" >
-            <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left">
-                <Button Content="Back" x:Name="btnBack"   Click="btnBack_Click" Style="{StaticResource myButton}"   Width="93"   />
-            </StackPanel>
+        <Grid Grid.ColumnSpan="2" Margin="10,-10,10,10" >
+
+            <Button x:Name="btnBack"   Click="btnBack_Click" Margin="0,10,435,499" RenderTransformOrigin="0.032,-0.775"   >
+                <StackPanel Width="30">
+                    <Image Source="Media/back.jpg" Height="29" />
+                </StackPanel>
+            </Button>
             <StackPanel VerticalAlignment="Top" Margin="-26,-24,0,0" HorizontalAlignment="Stretch"  Height="86" >
                 <ContentControl x:Name="pageLogo" ContentTemplate="{StaticResource LogoTemplate}"  Margin="0,46,44,35" HorizontalAlignment="Right" Height="37" RenderTransformOrigin="1.539,-0.519" Width="124"/>
             </StackPanel>
             <ComboBox x:Name="cmbStudentMentor"  ItemsSource="{Binding}" 
-                 HorizontalAlignment="Left" Margin="146,197,0,0" VerticalAlignment="Top" Height="23" Width="153"/>
-            <PasswordBox x:Name="passoword" HorizontalAlignment="Left" Margin="146,277,0,0" VerticalAlignment="Top" Height="23" Width="153"/>
-            <PasswordBox x:Name="ConfirmPassword" HorizontalAlignment="Left" Margin="146,317,0,0" VerticalAlignment="Top" Height="23" Width="153">
+                 HorizontalAlignment="Left" Margin="146,207,0,0" VerticalAlignment="Top" Height="23"  Width="182"/>
+            <PasswordBox x:Name="passoword" HorizontalAlignment="Left" Margin="146,289,0,0" VerticalAlignment="Top" Height="23"  Width="182" RenderTransformOrigin="0.5,0.5"/>
+
+            <PasswordBox x:Name="ConfirmPassword" HorizontalAlignment="Left" Margin="146,330,0,0" VerticalAlignment="Top" Height="23"  Width="182">
             </PasswordBox>
         </Grid>
         <Label Height="23" Margin="50,20,30,20" VerticalAlignment="Center"  HorizontalAlignment="Left" Width="88" Content=""/>
         <Label Height="23" Margin="39,120,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="88" Content="First Name: "/>
         <Label Margin="39,159,0,0" Height="23" VerticalAlignment="Top" Width="108" HorizontalAlignment="Left" Content="Last Name:"/>
-        <Label Margin="44,204,0,0" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Width="108" Content="  Mentor :"/>
-        <Label Margin="20,248,0,0" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Width="108" Content="Email Address:" RenderTransformOrigin="2.398,0.609"/>
+        <Label Margin="39,187,0,0" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Width="108" Content="  Mentor :"/>
+        <Label Margin="19,232,0,0" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Width="108" Content="Email Address:" RenderTransformOrigin="2.398,0.609"/>
         <Label Margin="49,400,0,0" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Width="108" Content="   Phone:"/>
-        <Label Margin="0,304,0,0" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Width="108" Content="Confirm Password:"/>
+        <Label Margin="0,314,0,0" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Width="108" Content="Confirm Password:"/>
         <Label Margin="44,276,0,0" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Width="108" Content="Password:"/>
         <Label Margin="50,354,0,0" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Width="108" Content="Address:" Grid.ColumnSpan="2"/>
         <Label Margin="30,439,0,0" Height="23" VerticalAlignment="Top" HorizontalAlignment="Left" Width="108" Content="Date of Birth:" RenderTransformOrigin="0.426,1.348"/>
-        <TextBox Height="21" Width="153" Margin="0,159,0,0" TabIndex="0" x:Name="txtLastName" VerticalAlignment="Top"  HorizontalAlignment="Left" Grid.Column="1" />
-        <TextBox Height="21" Width="153" Margin="0,122,0,0" x:Name="txtFirstName" VerticalAlignment="Top" HorizontalAlignment="Left"  Grid.Column="1" />
+        <TextBox Height="21"  Width="182" Margin="0,159,0,0" TabIndex="0" x:Name="txtLastName" VerticalAlignment="Top"  HorizontalAlignment="Left" Grid.Column="1" />
+        <TextBox Height="21"  Width="182" Margin="0,122,0,0" x:Name="txtFirstName" VerticalAlignment="Top" HorizontalAlignment="Left"  Grid.Column="1" />
         <Button  HorizontalAlignment="Left" Style="{StaticResource myButton}"    Margin="0,473,0,0" Content="Register" x:Name="btnOhk" VerticalAlignment="Top"  Click="ok_Click" Grid.Column="1" Width="93"/>
-        <Button  HorizontalAlignment="Left" Click="btncancel_Click" Margin="98,473,0,0" Style="{StaticResource myButton}" x:Name="btncancel" VerticalAlignment="Top"  IsCancel="True" Grid.Column="1" Width="93">Cancel</Button>
-        <TextBox Height="23" Margin="0,400,0,0" x:Name="txtNumber" VerticalAlignment="Top" TabIndex="7" HorizontalAlignment="Left" Width="153" Grid.Column="1" />
-        <TextBox Height="23" Margin="1,363,0,0" x:Name="txtHome_Address" VerticalAlignment="Top" TabIndex="8" HorizontalAlignment="Left" Width="153" Grid.Column="1" />
-        <TextBox Height="23" Margin="0,237,0,0" x:Name="txtEmail" VerticalAlignment="Top" HorizontalAlignment="Left" Width="153" Grid.Column="1" />
-        <DatePicker x:Name="dtPicker" HorizontalAlignment="Left" Margin="1,440,0,0" VerticalAlignment="Top" Width="153" Grid.Column="1"/>
+        <Button  HorizontalAlignment="Left" Click="btncancel_Click" Margin="98,473,0,0" Style="{StaticResource myButton}" x:Name="btncancel" VerticalAlignment="Top"  IsCancel="True" Grid.Column="1" Width="85">Cancel</Button>
+        <TextBox Height="23" Margin="0,400,0,0" x:Name="txtNumber" VerticalAlignment="Top" TabIndex="7" HorizontalAlignment="Left"  Width="182" Grid.Column="1" />
+        <TextBox Height="23" Margin="1,363,0,0" x:Name="txtHome_Address" VerticalAlignment="Top" TabIndex="8" HorizontalAlignment="Left"  Width="182" Grid.Column="1" />
+        <TextBox Height="23" Margin="0,237,0,0" x:Name="txtEmail"   VerticalAlignment="Top" HorizontalAlignment="Left" Width="182" Grid.Column="1" />
+        <TextBlock IsHitTestVisible="False" FontSize="16" Text="Yourname@jhb.dvt.co.za" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="1,237,0,282" Foreground="DarkGray" Height="30" Width="182" Grid.Column="1">
+            <TextBlock.Style>
+                <Style TargetType="{x:Type TextBlock}">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                    <Setter Property="FontSize" Value="12"/>
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Text, ElementName=txtEmail}" Value="">
+                            <Setter Property="Visibility" Value="Visible"/>
+
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+        <DatePicker x:Name="dtPicker" HorizontalAlignment="Left" Margin="1,440,0,0" VerticalAlignment="Top"  Width="182" Grid.Column="1"/>
     </Grid>
 </Window>

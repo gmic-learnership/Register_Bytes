@@ -31,7 +31,7 @@ namespace Rectify
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             studentsList.ItemsSource = GetStudentList();
-            Name.Text = "Welcome ,  " + SessionContext.UserName;
+            Name.Text = "Welcome," + SessionContext.UserName;
             Student student = this.studentsList.SelectedItem as Student;
             attendanceDetails.ItemsSource = getAttendanceByID(student.ID);
         }

@@ -59,7 +59,7 @@
     </Key>
     <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="StudentID" Type="Int32" Nullable="false" />
-    <Property Name="HoursPerDay" Type="Decimal" Nullable="false" />
+    <Property Name="HoursPerDay" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
     <Property Name="AttendanceDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="Task_Completed" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Student" Relationship="RegisterDBModel.FK_AttendanceDetails_Students" FromRole="AttendanceDetail1" ToRole="Student" />

@@ -67,6 +67,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="About.xaml.cs">
+      <DependentUpon>About.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Data\AttendanceDetail1.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
@@ -81,6 +84,10 @@
     <Compile Include="StudentForm.xaml.cs">
       <DependentUpon>StudentForm.xaml</DependentUpon>
     </Compile>
+    <Page Include="About.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="CustomStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -184,6 +191,8 @@
       <DependentUpon>Model1.edmx</DependentUpon>
       <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
+    <Resource Include="Media\slogan.png" />
+    <Resource Include="Media\back.jpg" />
     <Resource Include="Media\Dvtlogo.png" />
   </ItemGroup>
   <ItemGroup>

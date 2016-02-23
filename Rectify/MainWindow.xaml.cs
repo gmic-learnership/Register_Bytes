@@ -20,6 +20,8 @@ using System.Data.Entity.Core.Objects;
 using System.Data.Objects;
 using Rectify.Model;
 using Rectify.Data.ViewModel;
+using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace Rectify
 {
@@ -58,7 +60,8 @@ namespace Rectify
             cmbStudent.SelectedIndex = 1;
             cmbMentorList.SelectedIndex = 1;
             GetMentors();
-            Username.Text = "Welcome ," + SessionContext.UserName;            
+            Username.Text = "Welcome ," + SessionContext.UserName;
+            getStudentByDate((DateTime.Now));
         }
         private void cmbMentorList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -81,18 +84,23 @@ namespace Rectify
         }
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-            DateTime picker = new DateTime();
+
             cmbStudent.SelectedIndex = 1;
+            DateTime picker =(DateTime)datePicker.SelectedDate;
+            getStudentByDate((DateTime)picker);
+        }
+        private IList<Student> getStudentByDate(DateTime dateSelected)
+        {
             using (RegisterContext = new RegisterDBEntities())
             {
-                picker = (DateTime)datePicker.SelectedDate;          
-                IList<Student> student = (from x in RegisterContext.Students    
-                                          from d in RegisterContext.AttendanceDetail1                              
-                                          where d.AttendanceDate == picker && x.ID == d.StudentID
-                                           select x).ToList();
+                IList<Student> student = (from x in RegisterContext.Students
+                                          from d in RegisterContext.AttendanceDetail1
+                                          where d.AttendanceDate == dateSelected && x.ID == d.StudentID
+                                          select x).ToList();
                 cmbStudent.DataContext = student;
-                
+               
                 txtTotal.Text = "No. of Attendance(s)" + "  " + cmbStudent.Items.Count.ToString();
+                return student;
             }
         }
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -102,17 +110,26 @@ namespace Rectify
                 SignModel signModel = new SignModel();
 
                 AttendanceDetail1 detail = new AttendanceDetail1();
-                detail.Task_Completed = txtTask.Text;
-                detail.HoursPerDay = Convert.ToDecimal(txtHours.Text);
-                detail.StudentID = SessionContext.UserID;
-                detail.AttendanceDate = (DateTime)datePicker.SelectedDate;
-                MessageBox.Show(signModel.SignRegister(detail));
-                txtTask.Clear();
-                txtHours.Clear();
+              
+                if (!Regex.IsMatch(txtHours.Text, "^((?:[0-9]|1[0-9]|2[0-3])(?:\\.\\d{1,2})?|24(?:\\.00?)?)$"))
+                {
+                    MessageBox.Show("Invalid input for Hours");
+                    txtHours.Clear();
+                }
+                else
+                {
+                    detail.Task_Completed = txtTask.Text;
+                    decimal hrs = decimal.Parse(txtHours.Text, CultureInfo.InvariantCulture);
+                    detail.HoursPerDay = hrs;
+                    detail.StudentID = SessionContext.UserID;
+                    detail.AttendanceDate = (DateTime)datePicker.SelectedDate;
+                    MessageBox.Show(signModel.SignRegister(detail));
+                    txtHours.Clear();
+                    txtTask.Clear();
+                }            
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.Message);
             }           
         }         

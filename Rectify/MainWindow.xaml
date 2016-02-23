@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Rectify"
         mc:Ignorable="d"
-        Title="Learnership Attendance Details" Height="500" Width="600"  Loaded="Window_Loaded" Style="{StaticResource windowStyle}" Icon="Media/Dvtlogo.png">
+        Title="Learnership Attendance Details"   Loaded="Window_Loaded" Style="{StaticResource windowStyle}" Icon="Media/Dvtlogo.png">
 
     <Window.Resources>
 
@@ -15,9 +15,9 @@
             <ColumnDefinition Width="0*"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <ContentControl x:Name="pageLogo" ContentTemplate="{StaticResource LogoTemplate}" VerticalAlignment="Center" Margin="251,16,190,376" HorizontalAlignment="Center" Height="36" Width="139" Grid.Column="1"/>
-        <TextBlock x:Name="Username" Text="{Binding }" Foreground="White" TextDecorations="Underline" FontWeight="Bold" FontSize="10pt" VerticalAlignment="Center" HorizontalAlignment="Right" Height="26" Width="141" Grid.Column="1" Margin="0,31,62,371" />
-        <TextBlock TextWrapping="Wrap" Foreground="White" Height="38" Margin="532,31,0,359" RenderTransformOrigin="0.093,1.658" HorizontalAlignment="Left" Width="29" Grid.ColumnSpan="2">
+        <ContentControl x:Name="pageLogo" ContentTemplate="{StaticResource LogoTemplate}" VerticalAlignment="Center" Margin="236,16,177,461" HorizontalAlignment="Center" Height="51" Width="167" Grid.Column="1"/>
+        <TextBlock x:Name="Username" Text="{Binding }" Foreground="White" FontWeight="Bold" FontSize="10pt" VerticalAlignment="Center" HorizontalAlignment="Right" Height="26" Width="153" Grid.Column="1" Margin="0,29,33,473" />
+        <TextBlock TextWrapping="Wrap" Foreground="White" Height="38" Margin="529,29,0,461" RenderTransformOrigin="0.093,1.658" HorizontalAlignment="Left" Width="29" Grid.ColumnSpan="2">
                    
                         <Run FontSize="18"  Text="▼" Foreground="White" MouseEnter="run_MouseEnter"/></TextBlock>
         <Popup x:Name="popLink" StaysOpen="False" Placement="Mouse" MaxWidth="200" PopupAnimation="Scroll" AllowsTransparency="True">
@@ -28,22 +28,28 @@
         <ComboBox x:Name="cmbMentorList"
                   HorizontalAlignment="Stretch"
                   Height="23"                                
-                  Margin="20,0,398,148"                
+                  Margin="20,0,398,228"                
                   VerticalAlignment="Bottom"
                   ItemsSource="{Binding}"                  
                   Width="Auto"
                   IsSynchronizedWithCurrentItem="True" SelectionChanged="cmbMentorList_SelectionChanged" RenderTransformOrigin="0.469,0.609" Grid.Column="1"/>
-        <TextBlock FontSize="24" FontWeight="Bold" Foreground="White" VerticalAlignment="Bottom" Margin="20,0,425,254" Grid.Column="1" Height="32" ><Run Text=" Date"/><Run Text=" *"/></TextBlock>
+        <TextBlock FontSize="24" FontWeight="Bold" Foreground="White" VerticalAlignment="Bottom" Margin="10,0,435,354" Grid.Column="1" Height="32" ><Run Text=" Date"/><Run Text=" *"/></TextBlock>
         <DatePicker  x:Name="datePicker" HorizontalAlignment="Left" Margin="20,174,0,0" VerticalAlignment="Top" Height="23" Width="168" SelectedDateChanged="DatePicker_SelectedDateChanged" Grid.Column="1" DisplayDateEnd="2016-08-03" DisplayDateStart="2015-08-03"/>
         <ComboBox x:Name="cmbStudent" ItemsSource="{Binding}"    ItemTemplate="{StaticResource StudentList}"  Grid.Column="1" Margin="219,174,232,0" VerticalAlignment="Top" Height="22"/>
-        <TextBlock x:Name="textBlock"  FontSize="24" FontWeight="Bold" Foreground="White" HorizontalAlignment="Left" Margin="20,220,0,0" TextWrapping="Wrap" Text="Mentor *" VerticalAlignment="Top" RenderTransformOrigin="-9.316,0.354" Width="102" Grid.Column="1" Height="32"/>
-        <Button x:Name="btnBack" Style="{StaticResource myButton}" Content="Back" HorizontalAlignment="Left" Margin="1,14,0,0" VerticalAlignment="Top" Width="51" Height="34" Click="btn_back" Grid.Column="1"/>
+        <TextBlock x:Name="textBlock"  FontSize="24" FontWeight="Bold" Foreground="White" HorizontalAlignment="Left" Margin="20,240,0,0" TextWrapping="Wrap" Text="Mentor *" VerticalAlignment="Top" RenderTransformOrigin="-9.316,0.354" Width="102" Grid.Column="1" Height="32"/>
+        <Button x:Name="btnBack"  HorizontalAlignment="Left" Margin="1,14,0,0" VerticalAlignment="Top"  Click="btn_back" Grid.Column="1">
+            <StackPanel >
+                <Image Source="Media/back.jpg" Height="33" Width="37" />
+            </StackPanel>
+        </Button>
         <TextBlock x:Name="txtName" HorizontalAlignment="Left" Margin="57,16,0,0" TextWrapping="Wrap"  FontSize="24" Foreground="White" Text="Daily Register" VerticalAlignment="Top" RenderTransformOrigin="0.194,0.969" Width="147" Grid.Column="1" Height="32"/>
         <TextBox x:Name="txtHours" Grid.Column="1" HorizontalAlignment="Left" Height="23" Margin="377,174,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="153"></TextBox>
-        <TextBox x:Name="txtTask" SpellCheck.IsEnabled="True"  Grid.Column="1" HorizontalAlignment="Left" Height="82" Margin="20,314,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="162"/>
+        <TextBox x:Name="txtTask" SpellCheck.IsEnabled="True"  Grid.Column="1" HorizontalAlignment="Left" Height="82" Margin="20,328,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="162"/>
 
-        <Button x:Name="btnSave" Content="Save" Style="{StaticResource myButton}" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="456,299,0,0" VerticalAlignment="Top" Width="74" Click="btnSave_Click" RenderTransformOrigin="0.595,1.421"/>
-        <Button x:Name="btnCancel" Content="Cancel"  Style="{StaticResource myButton}" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="377,299,0,0" VerticalAlignment="Top" Width="74" Click="btnCancel_Click"  />
-        <TextBlock x:Name="txtTotal" Grid.Column="1" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Margin="377,383,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="169" Height="16" RenderTransformOrigin="1.079,7.562"><Run Text=""/></TextBlock>
+        <Button x:Name="btnSave" Content="Save" Style="{StaticResource myButton}" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="456,372,0,0" VerticalAlignment="Top" Width="74" Click="btnSave_Click" RenderTransformOrigin="0.595,1.421"/>
+        <Button x:Name="btnCancel" Content="Cancel"  Style="{StaticResource myButton}" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="377,372,0,0" VerticalAlignment="Top" Width="74" Click="btnCancel_Click"  />
+        <TextBlock x:Name="txtTotal" Grid.Column="1" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Margin="377,351,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="153" Height="16" RenderTransformOrigin="1.079,7.562"><Run Text=""/></TextBlock>
+        <TextBlock x:Name="txtStudent"  FontSize="24" FontWeight="Bold" Foreground="White" HorizontalAlignment="Left" Margin="219,137,0,0" TextWrapping="Wrap" Text="Name" VerticalAlignment="Top" RenderTransformOrigin="-9.316,0.354" Width="102" Grid.Column="1" Height="32"/>
+        <TextBlock x:Name="txtStudentHours"  FontSize="24" FontWeight="Bold" Foreground="White" HorizontalAlignment="Left" Margin="377,137,0,0" TextWrapping="Wrap" Text="Hours" VerticalAlignment="Top" RenderTransformOrigin="-9.316,0.354" Width="102" Grid.Column="1" Height="32"/>
     </Grid>
 </Window>

@@ -40,11 +40,11 @@ C:\Users\Wmaluleke\Desktop\DigitalRegister\Rectify\Rectify\obj\Debug\Home.g.cs
 C:\Users\Wmaluleke\Desktop\DigitalRegister\Rectify\Rectify\obj\Debug\MainWindow.g.cs
 C:\Users\Wmaluleke\Desktop\DigitalRegister\Rectify\Rectify\obj\Debug\Manage.g.cs
 C:\Users\Wmaluleke\Desktop\DigitalRegister\Rectify\Rectify\obj\Debug\StudentForm.g.cs
-C:\Users\Wmaluleke\Desktop\DigitalRegister\Rectify\Rectify\obj\Debug\StudentRegister.g.cs
 C:\Users\Wmaluleke\Desktop\DigitalRegister\Rectify\Rectify\obj\Debug\Login.baml
 C:\Users\Wmaluleke\Desktop\DigitalRegister\Rectify\Rectify\obj\Debug\Home.baml
 C:\Users\Wmaluleke\Desktop\DigitalRegister\Rectify\Rectify\obj\Debug\MainWindow.baml
 C:\Users\Wmaluleke\Desktop\DigitalRegister\Rectify\Rectify\obj\Debug\Manage.baml
 C:\Users\Wmaluleke\Desktop\DigitalRegister\Rectify\Rectify\obj\Debug\StudentForm.baml
-C:\Users\Wmaluleke\Desktop\DigitalRegister\Rectify\Rectify\obj\Debug\StudentRegister.baml
 C:\Users\Wmaluleke\Desktop\DigitalRegister\Rectify\Rectify\obj\Debug\Rectify.csprojResolveAssemblyReference.cache
+C:\Users\Wmaluleke\Desktop\DigitalRegister\Rectify\Rectify\obj\Debug\About.g.cs
+C:\Users\Wmaluleke\Desktop\DigitalRegister\Rectify\Rectify\obj\Debug\About.baml
