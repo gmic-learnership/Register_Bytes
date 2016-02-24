@@ -1,5 +1,6 @@
 ﻿using Rectify.Data;
 using Rectify.Data.ViewModel;
+using Rectify.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,7 @@ namespace Rectify
             RegisterDBEntities RegisterContext = new RegisterDBEntities();
             txtFirstName.Focus();
             cmbStudentMentor.SelectedIndex = 1;
+            LoginName.DataContext = "Welcome, " + SessionContext.UserName;
             foreach (var d in RegisterContext.AttendanceMasters)
             {
                 cmbStudentMentor.Items.Add(d.FirstName + "  " + d.LastName.Substring(0, 1).ToUpper());
@@ -113,6 +115,26 @@ namespace Rectify
         {
             Login login = new Login();
             login.Show();
+            this.Hide();
+        }
+
+        private void run_MouseEnter(object sender, MouseEventArgs e)
+        {
+            popLink.IsOpen = true;
+        }
+
+        private void lnk_Click(object sender, RoutedEventArgs e)
+        {
+            popLink.IsOpen = false;
+            Login login = new Login();
+            login.Show();
+            this.Hide();
+        }
+
+        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            About about = new About();
+            about.Show();
             this.Hide();
         }
     }

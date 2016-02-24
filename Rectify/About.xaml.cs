@@ -28,7 +28,7 @@ namespace Rectify
         private void run_MouseEnter(object sender, MouseEventArgs e)
         {
             popLink.IsOpen = false;
-            MainWindow login = new MainWindow();
+            Login  login = new Login();
             login.Show();
             this.Hide();
         }
@@ -36,6 +36,16 @@ namespace Rectify
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             LoginName.Text = "Welcome," + SessionContext.UserName;
+        }
+
+        private void lnk_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnBack_Click(object sender, RoutedEventArgs e)
+        {
+          
         }
     }
 }

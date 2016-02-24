@@ -58,5 +58,12 @@ namespace Rectify
             login.Show();
             this.Hide();
         }
+
+        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            About about = new About();
+            about.Show();
+            this.Hide();
+        }
     }
 }

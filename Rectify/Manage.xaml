@@ -64,14 +64,14 @@
             </ListView.View>
         </ListView>
         <TextBlock x:Name="txtTotal" Foreground="White" FontWeight="Bold" HorizontalAlignment="Left" Margin="27,531,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="168" Height="16" RenderTransformOrigin="1.079,7.562" Grid.Column="1"><Run Text=""/></TextBlock>
-        <Button x:Name="btnAdd" Content="Add" Style="{StaticResource myButton}" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="221,506,0,0" VerticalAlignment="Top" Width="74" Click="btnAdd_Click" RenderTransformOrigin="0.595,1.421"/>
+        <Button x:Name="btnAdd" Content="Add" Style="{StaticResource myButton}" Grid.Column="1" HorizontalAlignment="Left"  Margin="221,506,0,0" VerticalAlignment="Top"  Click="btnAdd_Click" RenderTransformOrigin="0.595,1.421"/>
         <Button x:Name="btnBack" HorizontalAlignment="Left" Margin="10,21,0,0" VerticalAlignment="Top" Click="btnback_Click">
             <StackPanel >
                 <Image Source="Media/back.jpg" Height="47" />
             </StackPanel>
         </Button>
 
-        <Button x:Name="btnDelete" Content="Save" Style="{StaticResource myButton}" Grid.Column="1" HorizontalAlignment="Left" Height="38" Margin="298,506,0,0" VerticalAlignment="Top" Width="74" Click="btnDelete_Click" RenderTransformOrigin="0.595,1.421"/>
+        <Button x:Name="btnDelete" Content="Save" Style="{StaticResource myButton}" Grid.Column="1" HorizontalAlignment="Left"  Margin="298,506,0,0" VerticalAlignment="Top"  Click="btnDelete_Click" />
         <ContentControl x:Name="pageLogo" ContentTemplate="{StaticResource LogoTemplate}"  Margin="0,16,185,497" HorizontalAlignment="Right" RenderTransformOrigin="1.539,-0.519" Width="180" Grid.Column="1"/>
         <TextBlock x:Name="Name" FontSize="10pt"  Foreground="White" FontWeight="Bold" Margin="221,30,74,497" Grid.Column="1" RenderTransformOrigin="1.12,0.353"/>
         <TextBlock TextWrapping="Wrap" Foreground="White" Height="38" Margin="359,34,0,497" RenderTransformOrigin="0.093,1.658" HorizontalAlignment="Left" Width="28" Grid.Column="1">
@@ -79,7 +79,8 @@
         </TextBlock>
         <Popup x:Name="popLink" StaysOpen="False" Placement="Mouse" MaxWidth="200" PopupAnimation="Scroll" AllowsTransparency="True">
             <Border BorderBrush="Beige" BorderThickness="2" Background="White">
-                <TextBlock Margin="10" TextWrapping="Wrap"><Hyperlink  FontWeight="Bold" FontSize="16" Click="lnk_Click"><Run Text="Logout"/></Hyperlink><LineBreak/><Hyperlink FontWeight="Bold" FontSize="16" Click="lnk_Click"><Run Text="Profile"/></Hyperlink></TextBlock>
+                <TextBlock Margin="10" TextWrapping="Wrap"><Hyperlink  FontWeight="Bold" FontSize="16" Click="lnk_Click"><Run Text="Logout"/></Hyperlink><LineBreak/><Hyperlink FontWeight="Bold" FontSize="16" Click="lnk_Click"><Run Text="Profile"/></Hyperlink>
+                           <LineBreak/> <Hyperlink FontWeight="Bold" FontSize="16" Click="Hyperlink_Click"><Run Text="About"/></Hyperlink></TextBlock>
             </Border>
         </Popup>
     </Grid>

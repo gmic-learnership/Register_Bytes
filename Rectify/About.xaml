@@ -13,11 +13,16 @@
             <RowDefinition Height="9*"/>
             <RowDefinition Height="300*"/>
         </Grid.RowDefinitions>
+        <Button x:Name="btnBack"  VerticalAlignment="Top" Click="btnBack_Click" Margin="10,19,542,0" Height="33"   >
+            <StackPanel >
+                <Image Source="Media/back.jpg" Height="29" Width="21" />
+            </StackPanel>
+        </Button>
         <ContentControl x:Name="pageLogo" ContentTemplate="{StaticResource LogoTemplate}"  Margin="0,40,193,111" HorizontalAlignment="Right" RenderTransformOrigin="1.539,-0.519" Width="180"/>
         <TextBlock Margin="10,161,-10,4.745" Foreground="White" FontSize="22" FontWeight="Bold" Grid.RowSpan="3">Company Overview<LineBreak/></TextBlock>
         <TextBlock x:Name="LoginName" Text="{Binding  }"  Foreground="White"  FontWeight="Bold"  VerticalAlignment="Center" HorizontalAlignment="Right" Height="36" Width="212" Margin="0,40,0,131" RenderTransformOrigin="0.714,0.486" />
         <TextBlock TextWrapping="Wrap" Foreground="White" Margin="0,63,13,95" RenderTransformOrigin="0.093,1.658" HorizontalAlignment="Right" Width="32">
-            
+          
          <Run FontSize="18"  Text="▼" Foreground="White" MouseEnter="run_MouseEnter"/></TextBlock>
         <TextBlock  Margin="10,39,10,112" Foreground="White" FontSize="22" Grid.Row="1" Grid.RowSpan="3">
 
@@ -29,11 +34,12 @@
             <LineBreak/>development to business software solutions consulting, 
             <LineBreak/>software quality assurance, enterprise mobility solutions,
              <LineBreak/>business intelligence solutions;
-          
+
         </TextBlock>
         <Popup x:Name="popLink" StaysOpen="False" Placement="Mouse" MaxWidth="200" PopupAnimation="Scroll" AllowsTransparency="True">
             <Border BorderBrush="Beige" BorderThickness="2" Background="White">
-                <TextBlock Margin="10" TextWrapping="Wrap"><Hyperlink  FontWeight="Bold" FontSize="16" Click="lnk_Click"><Run Text="Logout"/></Hyperlink><LineBreak/><Hyperlink FontWeight="Bold" FontSize="16" Click="lnk_Click"><Run Text="Profile"/></Hyperlink></TextBlock>
+                <TextBlock Margin="10" TextWrapping="Wrap"><Hyperlink  FontWeight="Bold" FontSize="16" Click="lnk_Click"><Run Text="Logout"/></Hyperlink><LineBreak/><Hyperlink FontWeight="Bold" FontSize="16" Click="lnk_Click"><Run Text="Profile"/></Hyperlink>
+                           <LineBreak/> <Hyperlink FontWeight="Bold" FontSize="16" Click="Hyperlink_Click"><Run Text="About"/></Hyperlink></TextBlock>
             </Border>
         </Popup>
     </Grid>

@@ -55,7 +55,11 @@
                     <TextBlock TextWrapping="Wrap" Foreground="White" Height="38" Margin="-17,0,0,0" RenderTransformOrigin="0.093,1.658" HorizontalAlignment="Left" Width="38"><Run FontSize="18"  Text="▼" Foreground="White" MouseEnter="run_MouseEnter"/></TextBlock>
                     <Popup x:Name="popLink" StaysOpen="False" Placement="Mouse" MaxWidth="200" PopupAnimation="Scroll" AllowsTransparency="True">
                         <Border BorderBrush="Beige" BorderThickness="2" Background="White">
-                            <TextBlock Margin="10" TextWrapping="Wrap"><Hyperlink  FontWeight="Bold" FontSize="16" Click="lnk_Click"><Run Text="Logout"/></Hyperlink><LineBreak/><Hyperlink FontWeight="Bold" FontSize="16" Click="lnk_Click"><Run Text="Profile"/></Hyperlink></TextBlock>
+                            <TextBlock Margin="10" TextWrapping="Wrap"><Hyperlink  FontWeight="Bold" FontSize="16" Click="lnk_Click"><Run Text="Logout"/>
+                            </Hyperlink><LineBreak/>
+                                <Hyperlink FontWeight="Bold" FontSize="16" Click="lnk_Click"><Run Text="Profile"/></Hyperlink>
+                               <LineBreak/> <Hyperlink FontWeight="Bold" FontSize="16" Click="Hyperlink_Click"><Run Text="About"/></Hyperlink>
+                            </TextBlock>
                         </Border>
                     </Popup>
                 </StackPanel>
