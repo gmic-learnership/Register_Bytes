@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Rectify.Data;
 using Rectify.Model;
-
+using Rectify.ModelData;
 
 
 namespace Rectify
@@ -24,49 +24,30 @@ namespace Rectify
         {
             InitializeComponent();
         }
-         
-        Home home = new Home();
-     
-        RegisterDBEntities registerContext = null;
+
+        Home home = new Home();     
+        DigitalEntities digitalContext = null;
         private void btn_Click(object sender, RoutedEventArgs e)
         {
-            using (registerContext = new RegisterDBEntities())
+            using (digitalContext = new DigitalEntities())
             {
-                var mentor = (from t in registerContext.AttendanceMasters
+                var mentor = (from t in digitalContext.People
                                where String.Compare(t.Username, txtUsername.Text) == 0
                                && String.Compare(t.Password,txtPassword.Password) == 0
                                select t).FirstOrDefault();
-
-                var student = (from stud in registerContext.Students
-                               where String.Compare(stud.Username, txtUsername.Text) == 0
-                               && String.Compare(stud.Password, txtPassword.Password) == 0
-                               select stud).FirstOrDefault();
                 if (mentor != null && !String.IsNullOrEmpty(mentor.Username))
                 {
-                    SessionContext.UserID = mentor.ID;
-                    SessionContext.UserRole = Role.AttendanceMaster;
+                    SessionContext.UserID = mentor.PersonID;
+                   SessionContext.UserRole = Role.Person;
                     SessionContext.UserName = mentor.FirstName;
-                    SessionContext.CurrentTeacher = mentor;
-                    home.HorizontalAlignment = HorizontalAlignment.Center;
+                    SessionContext.CurrentMentor = mentor;
                     home.Show();                
-                    home.btnManage.IsEnabled = true;
-                    this.Close();
-                }
-                else if (student != null && !String.IsNullOrEmpty(student.Username) )
-                    {
-                        SessionContext.UserID = student.ID;
-                        SessionContext.UserRole = Role.Student;
-                        SessionContext.UserName = student.FirstName;
-
-                        SessionContext.CurrentStudent = student;                                   
-                        home.Show();
-                        home.btnManage.IsEnabled = false;
+                    home.btnManage.IsEnabled = false;
                     this.Close();
                 }
                 else
                 {
-                    MessageBox.Show("Invalid Username or Password", "Logon Failed", MessageBoxButton.OK, MessageBoxImage.Error);
-                    
+                    MessageBox.Show("Invalid Username or Password", "Please Try Again", MessageBoxButton.OK, MessageBoxImage.Error);                    
                 }
               }           
         }
@@ -74,10 +55,9 @@ namespace Rectify
         {
             txtUsername.Focus();
         }
-
         private void lnk_Click(object sender, RoutedEventArgs e)
         {
-            StudentForm sf = new StudentForm();
+            Mentor sf = new Mentor();
             sf.Show();
             this.Hide();
         }

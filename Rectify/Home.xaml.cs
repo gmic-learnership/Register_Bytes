@@ -33,37 +33,39 @@ namespace Rectify
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            LoginName.DataContext = "Welcome, " + SessionContext.UserName;
+            LoginName.Text = "Welcome, " + SessionContext.UserName;
         }
         private void btnManage_Click(object sender, RoutedEventArgs e)
         {          
-            Manage manage = new Manage();
-            manage.Show();
-            this.Close();
+          
         }
         private void run_MouseEnter(object sender, MouseEventArgs e)
         {
             popLink.IsOpen = true;
         }
-        private void lnk_Click(object sender, RoutedEventArgs e)
+        private void SignOut()
         {
             popLink.IsOpen = false;
             Login login = new Login();
             login.Show();
-            this.Hide();          
+            this.Hide();
+        }
+        private void lnk_Click(object sender, RoutedEventArgs e)
+        {
+            SignOut();
         }
         private void btn_back(object sender, RoutedEventArgs e)
         {
-            Login login = new Login();
-            login.Show();
-            this.Hide();
+            SignOut();
         }
 
         private void Hyperlink_Click(object sender, RoutedEventArgs e)
         {
+            popLink.IsOpen = false;
             About about = new About();
             about.Show();
             this.Hide();
         }
+        
     }
 }

@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DigitalModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AttendanceDetails">
+          <Key>
+            <PropertyRef Name="DetailID" />
+          </Key>
+          <Property Name="DetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PersonID" Type="int" Nullable="false" />
+          <Property Name="MasterID" Type="int" Nullable="false" />
+          <Property Name="HoursPerDay" Type="decimal" Precision="18" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AttendanceMaster">
+          <Key>
+            <PropertyRef Name="MasterID" />
+          </Key>
+          <Property Name="MasterID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="MentorID" Type="int" Nullable="false" />
+          <Property Name="TrainedOn" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="AttendanceDate" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="PersonID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="RoleID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_AttendanceDetails_AttendanceMaster">
+          <End Role="AttendanceMaster" Type="Self.AttendanceMaster" Multiplicity="1" />
+          <End Role="AttendanceDetails" Type="Self.AttendanceDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AttendanceMaster">
+              <PropertyRef Name="MasterID" />
+            </Principal>
+            <Dependent Role="AttendanceDetails">
+              <PropertyRef Name="MasterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AttendanceDetails_Person">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="AttendanceDetails" Type="Self.AttendanceDetails" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="AttendanceDetails">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AttendanceMaster_Person1">
+          <End Role="Person" Type="Self.Person" Multiplicity="1" />
+          <End Role="AttendanceMaster" Type="Self.AttendanceMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="AttendanceMaster">
+              <PropertyRef Name="MentorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Person_UserRole">
+          <End Role="UserRole" Type="Self.UserRole" Multiplicity="1" />
+          <End Role="Person" Type="Self.Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRole">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DigitalModelStoreContainer">
+          <EntitySet Name="AttendanceDetails" EntityType="Self.AttendanceDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AttendanceMaster" EntityType="Self.AttendanceMaster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Person" EntityType="Self.Person" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserRole" EntityType="Self.UserRole" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AttendanceDetails_AttendanceMaster" Association="Self.FK_AttendanceDetails_AttendanceMaster">
+            <End Role="AttendanceMaster" EntitySet="AttendanceMaster" />
+            <End Role="AttendanceDetails" EntitySet="AttendanceDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AttendanceDetails_Person" Association="Self.FK_AttendanceDetails_Person">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="AttendanceDetails" EntitySet="AttendanceDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AttendanceMaster_Person1" Association="Self.FK_AttendanceMaster_Person1">
+            <End Role="Person" EntitySet="Person" />
+            <End Role="AttendanceMaster" EntitySet="AttendanceMaster" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Person_UserRole" Association="Self.FK_Person_UserRole">
+            <End Role="UserRole" EntitySet="UserRole" />
+            <End Role="Person" EntitySet="Person" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DigitalModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DigitalEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="People" EntityType="DigitalModel.Person" />
+          <EntitySet Name="UserRoles" EntityType="DigitalModel.UserRole" />
+          <AssociationSet Name="FK_Person_UserRole" Association="DigitalModel.FK_Person_UserRole">
+            <End Role="UserRole" EntitySet="UserRoles" />
+            <End Role="Person" EntitySet="People" />
+          </AssociationSet>
+          <EntitySet Name="AttendanceDetails" EntityType="DigitalModel.AttendanceDetail" />
+          <EntitySet Name="AttendanceMasters" EntityType="DigitalModel.AttendanceMaster" />
+          <AssociationSet Name="FK_AttendanceDetails_AttendanceMaster" Association="DigitalModel.FK_AttendanceDetails_AttendanceMaster">
+            <End Role="AttendanceMaster" EntitySet="AttendanceMasters" />
+            <End Role="AttendanceDetail" EntitySet="AttendanceDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AttendanceDetails_Person" Association="DigitalModel.FK_AttendanceDetails_Person">
+            <End Role="Person" EntitySet="People" />
+            <End Role="AttendanceDetail" EntitySet="AttendanceDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AttendanceMaster_Person1" Association="DigitalModel.FK_AttendanceMaster_Person1">
+            <End Role="Person" EntitySet="People" />
+            <End Role="AttendanceMaster" EntitySet="AttendanceMasters" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AttendanceDetails_Person1" Association="DigitalModel.FK_AttendanceDetails_Person1">
+            <End Role="Person" EntitySet="People" />
+            <End Role="AttendanceDetail" EntitySet="AttendanceDetails" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Person">
+          <Key>
+            <PropertyRef Name="PersonID" />
+          </Key>
+          <Property Name="PersonID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RoleID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="UserRole" Relationship="DigitalModel.FK_Person_UserRole" FromRole="Person" ToRole="UserRole" />
+          <NavigationProperty Name="AttendanceDetails" Relationship="DigitalModel.FK_AttendanceDetails_Person" FromRole="Person" ToRole="AttendanceDetail" />
+          <NavigationProperty Name="AttendanceMasters" Relationship="DigitalModel.FK_AttendanceMaster_Person1" FromRole="Person" ToRole="AttendanceMaster" />
+          <NavigationProperty Name="AttendanceDetails1" Relationship="DigitalModel.FK_AttendanceDetails_Person1" FromRole="Person" ToRole="AttendanceDetail" />
+        </EntityType>
+        <EntityType Name="UserRole">
+          <Key>
+            <PropertyRef Name="RoleID" />
+          </Key>
+          <Property Name="RoleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="People" Relationship="DigitalModel.FK_Person_UserRole" FromRole="UserRole" ToRole="Person" />
+        </EntityType>
+        <Association Name="FK_Person_UserRole">
+          <End Type="DigitalModel.UserRole" Role="UserRole" Multiplicity="1" />
+          <End Type="DigitalModel.Person" Role="Person" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserRole">
+              <PropertyRef Name="RoleID" />
+            </Principal>
+            <Dependent Role="Person">
+              <PropertyRef Name="RoleID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="AttendanceDetail">
+          <Key>
+            <PropertyRef Name="DetailID" />
+          </Key>
+          <Property Name="DetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonID" Type="Int32" Nullable="false" />
+          <Property Name="MasterID" Type="Int32" Nullable="false" />
+          <Property Name="HoursPerDay" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="AttendanceMaster" Relationship="DigitalModel.FK_AttendanceDetails_AttendanceMaster" FromRole="AttendanceDetail" ToRole="AttendanceMaster" />
+          <NavigationProperty Name="Person" Relationship="DigitalModel.FK_AttendanceDetails_Person" FromRole="AttendanceDetail" ToRole="Person" />
+          <NavigationProperty Name="Person1" Relationship="DigitalModel.FK_AttendanceDetails_Person1" FromRole="AttendanceDetail" ToRole="Person" />
+        </EntityType>
+        <EntityType Name="AttendanceMaster">
+          <Key>
+            <PropertyRef Name="MasterID" />
+          </Key>
+          <Property Name="MasterID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="MentorID" Type="Int32" Nullable="false" />
+          <Property Name="TrainedOn" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AttendanceDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="AttendanceDetails" Relationship="DigitalModel.FK_AttendanceDetails_AttendanceMaster" FromRole="AttendanceMaster" ToRole="AttendanceDetail" />
+          <NavigationProperty Name="Person" Relationship="DigitalModel.FK_AttendanceMaster_Person1" FromRole="AttendanceMaster" ToRole="Person" />
+        </EntityType>
+        <Association Name="FK_AttendanceDetails_AttendanceMaster">
+          <End Type="DigitalModel.AttendanceMaster" Role="AttendanceMaster" Multiplicity="1" />
+          <End Type="DigitalModel.AttendanceDetail" Role="AttendanceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AttendanceMaster">
+              <PropertyRef Name="MasterID" />
+            </Principal>
+            <Dependent Role="AttendanceDetail">
+              <PropertyRef Name="MasterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AttendanceDetails_Person">
+          <End Type="DigitalModel.Person" Role="Person" Multiplicity="1" />
+          <End Type="DigitalModel.AttendanceDetail" Role="AttendanceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="AttendanceDetail">
+              <PropertyRef Name="MasterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AttendanceMaster_Person1">
+          <End Type="DigitalModel.Person" Role="Person" Multiplicity="1" />
+          <End Type="DigitalModel.AttendanceMaster" Role="AttendanceMaster" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="AttendanceMaster">
+              <PropertyRef Name="MentorID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AttendanceDetails_Person1">
+          <End Type="DigitalModel.Person" Role="Person" Multiplicity="1" />
+          <End Type="DigitalModel.AttendanceDetail" Role="AttendanceDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Person">
+              <PropertyRef Name="PersonID" />
+            </Principal>
+            <Dependent Role="AttendanceDetail">
+              <PropertyRef Name="PersonID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DigitalModelStoreContainer" CdmEntityContainer="DigitalEntities">
+          <EntitySetMapping Name="People">
+            <EntityTypeMapping TypeName="DigitalModel.Person">
+              <MappingFragment StoreEntitySet="Person">
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserRoles">
+            <EntityTypeMapping TypeName="DigitalModel.UserRole">
+              <MappingFragment StoreEntitySet="UserRole">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="RoleID" ColumnName="RoleID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AttendanceDetails">
+            <EntityTypeMapping TypeName="DigitalModel.AttendanceDetail">
+              <MappingFragment StoreEntitySet="AttendanceDetails">
+                <ScalarProperty Name="HoursPerDay" ColumnName="HoursPerDay" />
+                <ScalarProperty Name="MasterID" ColumnName="MasterID" />
+                <ScalarProperty Name="PersonID" ColumnName="PersonID" />
+                <ScalarProperty Name="DetailID" ColumnName="DetailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AttendanceMasters">
+            <EntityTypeMapping TypeName="DigitalModel.AttendanceMaster">
+              <MappingFragment StoreEntitySet="AttendanceMaster">
+                <ScalarProperty Name="AttendanceDate" ColumnName="AttendanceDate" />
+                <ScalarProperty Name="TrainedOn" ColumnName="TrainedOn" />
+                <ScalarProperty Name="MentorID" ColumnName="MentorID" />
+                <ScalarProperty Name="MasterID" ColumnName="MasterID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

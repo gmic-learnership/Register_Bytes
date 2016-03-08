@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5337dfaf6cb1454583813d94792d1f2f" Name="Diagram1">
+        <AssociationConnector Association="DigitalModel.FK_AttendanceDetails_AttendanceMaster1" />
+        <EntityTypeShape EntityType="DigitalModel.Person" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="DigitalModel.UserRole" Width="1.5" PointX="0.75" PointY="1.375" />
+        <AssociationConnector Association="DigitalModel.FK_Person_UserRole" />
+        <EntityTypeShape EntityType="DigitalModel.AttendanceDetail" Width="1.5" PointX="7.5" PointY="2.625" />
+        <EntityTypeShape EntityType="DigitalModel.AttendanceMaster" Width="1.5" PointX="5.25" PointY="4.25" />
+        <AssociationConnector Association="DigitalModel.FK_AttendanceDetails_AttendanceMaster" />
+        <AssociationConnector Association="DigitalModel.FK_AttendanceDetails_Person" />
+        <AssociationConnector Association="DigitalModel.FK_AttendanceMaster_Person1" />
+        <AssociationConnector Association="DigitalModel.FK_AttendanceDetails_Person1" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

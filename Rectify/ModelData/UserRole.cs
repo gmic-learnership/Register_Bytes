@@ -7,31 +7,23 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Rectify.Data
+namespace Rectify.ModelData
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class Student
+    public partial class UserRole
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Student()
+        public UserRole()
         {
-            this.AttendanceDetails1 = new HashSet<AttendanceDetail1>();
+            this.People = new HashSet<Person>();
         }
     
-        public int ID { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public System.DateTime DateOfBirth { get; set; }
-        public string Home_Address { get; set; }
-        public string Phone { get; set; }
-        public int MentorID { get; set; }
+        public int RoleID { get; set; }
+        public string Name { get; set; }
     
-        public virtual AttendanceMaster AttendanceMaster { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<AttendanceDetail1> AttendanceDetails1 { get; set; }
+        public virtual ICollection<Person> People { get; set; }
     }
 }

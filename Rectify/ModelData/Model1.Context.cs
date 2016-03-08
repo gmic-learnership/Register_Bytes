@@ -7,16 +7,16 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Rectify.Data
+namespace Rectify.ModelData
 {
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class RegisterDBEntities : DbContext
+    public partial class DigitalEntities : DbContext
     {
-        public RegisterDBEntities()
-            : base("name=RegisterDBEntities")
+        public DigitalEntities()
+            : base("name=DigitalEntities")
         {
         }
     
@@ -25,8 +25,9 @@ namespace Rectify.Data
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Student> Students { get; set; }
+        public virtual DbSet<Person> People { get; set; }
+        public virtual DbSet<UserRole> UserRoles { get; set; }
+        public virtual DbSet<AttendanceDetail> AttendanceDetails { get; set; }
         public virtual DbSet<AttendanceMaster> AttendanceMasters { get; set; }
-        public virtual DbSet<AttendanceDetail1> AttendanceDetail1 { get; set; }
     }
 }

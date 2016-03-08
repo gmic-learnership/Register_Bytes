@@ -22,6 +22,7 @@ using Rectify.Model;
 using Rectify.Data.ViewModel;
 using System.Text.RegularExpressions;
 using System.Globalization;
+using Rectify.ModelData;
 
 namespace Rectify
 {
@@ -30,21 +31,25 @@ namespace Rectify
     /// </summary>
     public partial class MainWindow : Window
     {
+       
+        Home home = null;
+        private DigitalEntities digitalContext = null;
         public MainWindow()
         {
             InitializeComponent();
         }
-        Home home = null;
-        private RegisterDBEntities RegisterContext = null;
         public void GetMentors()
         {
             try
-            {             
-                using (RegisterContext = new RegisterDBEntities())
+            {
+                using (digitalContext = new DigitalEntities())
                 {
-                    foreach (var d in RegisterContext.AttendanceMasters)
+                    List<Person> person = (from x in digitalContext.People
+                                           where x.RoleID == 2
+                                           select x).ToList();
+                    foreach (var item in person)
                     {
-                        cmbMentorList.Items.Add(d.FirstName + "  " + d.LastName.Substring(0, 1).ToUpper());
+                        cmbMentorList.Items.Add(item.FirstName + "  " + item.LastName.Substring(0, 1).ToUpper());
                     }
                 }
             }
@@ -52,29 +57,37 @@ namespace Rectify
             {
                 MessageBox.Show("mentors not found" + ex.Message);
             }
-        }      
+        }
         public void Window_Loaded(object sender, RoutedEventArgs e)
-        {           
-            RegisterContext = new RegisterDBEntities();
+        {
+            digitalContext = new DigitalEntities();
+            SignModel sign = new SignModel();
+            GetMentors();
             datePicker.SelectedDate = DateTime.Now;
             cmbStudent.SelectedIndex = 1;
             cmbMentorList.SelectedIndex = 1;
-            GetMentors();
             Username.Text = "Welcome ," + SessionContext.UserName;
-            getStudentByDate((DateTime.Now));
+            LoadData();
+            CustomViewModel model = new CustomViewModel();
+            DateTime picker = (DateTime)datePicker.SelectedDate;
+            item.DataContext = model.LoadData();
+        }  
+        private void LoadData()
+        {
+            
         }
         private void cmbMentorList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             try
             {
                 int Index = cmbMentorList.SelectedIndex + 1;
-                using (RegisterContext = new RegisterDBEntities())
+                using (digitalContext = new DigitalEntities())
                 {
-                    IList<Student> student = (from x in RegisterContext.Students                                             
-                                              where x.MentorID == Index
-                                              select x).ToList();           
-                    cmbStudent.DataContext= student;
-                    txtTotal.Text = "No. of Students" +"  " + cmbStudent.Items.Count.ToString();                   
+                    List<Person> student = (from x in digitalContext.People
+                                            where x.RoleID == 1
+                                            select x).ToList();
+                    cmbStudent.DataContext = student;
+                    Index = cmbMentorList.SelectedIndex + 1;
                 }
             }
             catch (Exception ex)
@@ -84,33 +97,32 @@ namespace Rectify
         }
         private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
         {
-
-            cmbStudent.SelectedIndex = 1;
-            DateTime picker =(DateTime)datePicker.SelectedDate;
-            getStudentByDate((DateTime)picker);
-        }
-        private IList<Student> getStudentByDate(DateTime dateSelected)
-        {
-            using (RegisterContext = new RegisterDBEntities())
+            listBox1.Items.Clear();
+            combo.Items.Clear();
+            DateTime picker = (DateTime)datePicker.SelectedDate;
+            digitalContext = new DigitalEntities();
+            var q = from a in digitalContext.AttendanceDetails
+                    join b in digitalContext.People on new { a.PersonID } equals new { b.PersonID }
+                    join c in digitalContext.AttendanceMasters on new { a.MasterID } equals new { c.MasterID }
+                    where c.AttendanceDate == picker 
+                    select new
+                    {
+                        b.FirstName,
+                        a.HoursPerDay
+                    };
+            listBox1.Items.Add("Name" + "        "+ "   "  + "Hours");      
+            foreach (var item in q)
             {
-                IList<Student> student = (from x in RegisterContext.Students
-                                          from d in RegisterContext.AttendanceDetail1
-                                          where d.AttendanceDate == dateSelected && x.ID == d.StudentID
-                                          select x).ToList();
-                cmbStudent.DataContext = student;
-               
-                txtTotal.Text = "No. of Attendance(s)" + "  " + cmbStudent.Items.Count.ToString();
-                return student;
+                listBox1.Items.Add(item.FirstName +"        " + item.HoursPerDay);
+                combo.Items.Add(item.FirstName + "  " + item.HoursPerDay);
             }
+
         }
         private void btnSave_Click(object sender, RoutedEventArgs e)
         {
             try
             {
                 SignModel signModel = new SignModel();
-
-                AttendanceDetail1 detail = new AttendanceDetail1();
-              
                 if (!Regex.IsMatch(txtHours.Text, "^((?:[0-9]|1[0-9]|2[0-3])(?:\\.\\d{1,2})?|24(?:\\.00?)?)$"))
                 {
                     MessageBox.Show("Invalid input for Hours");
@@ -118,26 +130,34 @@ namespace Rectify
                 }
                 else
                 {
-                    detail.Task_Completed = txtTask.Text;
+                    AttendanceMaster master = new AttendanceMaster();
+                    master.TrainedOn = txtTask.Text;
+                    master.AttendanceDate = (DateTime)datePicker.SelectedDate;
+                    MessageBox.Show(signModel.MasterRecord(master));
+                    AttendanceDetail detail = new AttendanceDetail();
                     decimal hrs = decimal.Parse(txtHours.Text, CultureInfo.InvariantCulture);
-                    detail.HoursPerDay = hrs;
-                    detail.StudentID = SessionContext.UserID;
-                    detail.AttendanceDate = (DateTime)datePicker.SelectedDate;
+                    detail.HoursPerDay = hrs;                 
+                    detail.MasterID = master.MasterID;
                     MessageBox.Show(signModel.SignRegister(detail));
                     txtHours.Clear();
                     txtTask.Clear();
-                }            
+                    LoadData();
+                }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
-            }           
-        }         
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
+            }
+        }
+        private void OnNavigate()
         {
             this.Close();
-             home = new Home();
-            home.Visibility = Visibility.Visible;
+            home = new Home();
+            home.Show();
+        }
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+
         }
         private void lnk_Click(object sender, RoutedEventArgs e)
         {
@@ -152,9 +172,27 @@ namespace Rectify
         }
         private void btn_back(object sender, RoutedEventArgs e)
         {
+            this.Hide();
             home = new Home();
             home.Show();
+        }
+
+        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+            popLink.IsOpen = false;
+            About about = new About();
+            about.Show();
             this.Hide();
+        }
+
+        private void combo_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+        }
+
+        private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
+

@@ -7,19 +7,20 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Rectify.Data
+namespace Rectify.ModelData
 {
     using System;
     using System.Collections.Generic;
     
-    public partial class AttendanceDetail1
+    public partial class AttendanceDetail
     {
-        public int ID { get; set; }
-        public int StudentID { get; set; }
+        public int DetailID { get; set; }
+        public int PersonID { get; set; }
+        public int MasterID { get; set; }
         public decimal HoursPerDay { get; set; }
-        public System.DateTime AttendanceDate { get; set; }
-        public string Task_Completed { get; set; }
     
-        public virtual Student Student { get; set; }
+        public virtual AttendanceMaster AttendanceMaster { get; set; }
+        public virtual Person Person { get; set; }
+        public virtual Person Person1 { get; set; }
     }
 }

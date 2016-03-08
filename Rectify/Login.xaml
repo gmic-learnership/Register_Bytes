@@ -7,9 +7,8 @@
         mc:Ignorable="d"
         Title="Please Login"  Loaded="Window_Loaded"  Style="{StaticResource windowStyle}"   Icon="Media/Dvtlogo.png">
     <Grid>
-        <ContentControl x:Name="pageLogo" ContentTemplate="{StaticResource LogoTemplate}"  Margin="0,21,349,484" HorizontalAlignment="Right" RenderTransformOrigin="1.539,-0.519" Width="209"/>
-        <ContentControl x:Name="slogan" ContentTemplate="{StaticResource slogan}"  Margin="0,85,213,452" HorizontalAlignment="Right" RenderTransformOrigin="1.539,-0.519" Width="355"/>
-        <Grid Margin="0,21,0,-21">
+        <ContentControl x:Name="slogan" ContentTemplate="{StaticResource slogan}"  Margin="0,88,227,449" HorizontalAlignment="Right" RenderTransformOrigin="1.539,-0.519" Width="355"/>
+        <Grid Margin="10,53,-10,-53">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
@@ -29,6 +28,7 @@
                     <TextBlock  Text="Username :" Style="{StaticResource LabelStyle}" />
                     <TextBlock  Text="Password  :" Style="{StaticResource LabelStyle}"  />
                 </StackPanel>
+
             </Grid>
             <Button x:Name="btn" Content="Login" Click="btn_Click" Style="{StaticResource myButton}" Grid.Column="1" HorizontalAlignment="Left" Grid.Row="2" VerticalAlignment="Top" Margin="118,0,0,0" />
             <Grid Margin="-10,0,10,0">
@@ -46,6 +46,9 @@
                     </TextBlock.Style>
                 </TextBlock>
             </Grid>
+            <StackPanel Background="White" Grid.ColumnSpan="3" Margin="-10,-54,10,159" >
+                <ContentControl x:Name="pageLogo1" ContentTemplate="{StaticResource LogoTemplate}"  Margin="0,21,359,484" HorizontalAlignment="Right" RenderTransformOrigin="1.539,-0.519" Width="209"/>
+            </StackPanel>
             <Grid Margin="-10,0,10,0">
                 <PasswordBox x:Name="txtPassword" Style="{StaticResource passwordBoxStyle}" HorizontalAlignment="Left" Margin="168,299,-218,-137" VerticalAlignment="Top"  FontWeight="Bold" Background="White" IsInactiveSelectionHighlightEnabled="True"/>
                 <TextBlock IsHitTestVisible="False" FontSize="16" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="168,237,-195,-111" Foreground="DarkGray" Height="30" Width="177">

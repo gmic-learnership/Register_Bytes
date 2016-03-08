@@ -27,25 +27,37 @@ namespace Rectify
 
         private void run_MouseEnter(object sender, MouseEventArgs e)
         {
-            popLink.IsOpen = false;
-            Login  login = new Login();
-            login.Show();
-            this.Hide();
+            popLink.IsOpen = true;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             LoginName.Text = "Welcome," + SessionContext.UserName;
+            run.Text = "";
+            
         }
 
         private void lnk_Click(object sender, RoutedEventArgs e)
         {
-
+            OnNavigate();
         }
-
         private void btnBack_Click(object sender, RoutedEventArgs e)
         {
-          
+            Home home = new Home();
+            home.Show();
+            this.Hide();
+        }
+        private void OnNavigate()
+        {
+            popLink.IsOpen = false;
+            Login login = new Login();
+            login.Show();
+            this.Hide();
+        }
+
+        private void Hyperlink_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

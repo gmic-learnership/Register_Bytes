@@ -7,7 +7,7 @@
     <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="StudentID" Type="int" Nullable="false" />
     <Property Name="HoursPerDay" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-    <Property Name="AttendanceDate" Type="datetime" Nullable="false" />
+    <Property Name="AttendanceDate" Type="date" Nullable="false" />
     <Property Name="Task_Completed" Type="nvarchar" MaxLength="250" Nullable="false" />
   </EntityType>
   <EntityType Name="AttendanceMaster">
@@ -36,7 +36,9 @@
     <Property Name="MentorID" Type="int" Nullable="false" />
   </EntityType>
   <Association Name="FK_AttendanceDetails_Students">
-    <End Role="Students" Type="Self.Students" Multiplicity="1" />
+    <End Role="Students" Type="Self.Students" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
     <End Role="AttendanceDetails" Type="Self.AttendanceDetails" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Students">
@@ -47,7 +49,7 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Students_AttendanceMaster">
+  <Association Name="FK_Students_AttendanceMaster1">
     <End Role="AttendanceMaster" Type="Self.AttendanceMaster" Multiplicity="1" />
     <End Role="Students" Type="Self.Students" Multiplicity="*" />
     <ReferentialConstraint>
@@ -67,7 +69,7 @@
       <End Role="Students" EntitySet="Students" />
       <End Role="AttendanceDetails" EntitySet="AttendanceDetails" />
     </AssociationSet>
-    <AssociationSet Name="FK_Students_AttendanceMaster" Association="Self.FK_Students_AttendanceMaster">
+    <AssociationSet Name="FK_Students_AttendanceMaster1" Association="Self.FK_Students_AttendanceMaster1">
       <End Role="AttendanceMaster" EntitySet="AttendanceMaster" />
       <End Role="Students" EntitySet="Students" />
     </AssociationSet>
